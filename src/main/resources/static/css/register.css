@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #080838;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.register-container {
+    background-color: transparent;
+    border: 2px solid white; /* Бял контур */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    width: 300px;
+}
+
+.register-form input,
+.register-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box; /* Гарантира, че padding не влияе на ширината */
+    text-align: center; /* Центрира текста */
+}
+
+.register-btn {
+    background-color: #F9A825;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #F57F17;
+}
+
+.form-already {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: white;
+}
+
+.form-already a {
+    color: #F9A825;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.form-already a:hover {
+    color: #F57F17;
+}
+
+.text-warning {
+    color: #e71717;
+}
+
