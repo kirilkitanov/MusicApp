@@ -79,7 +79,7 @@ body, html {
 }
 
 /* Дясна част*/
-.edit-profile-container {
+.add-album-container {
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -88,7 +88,7 @@ body, html {
     margin: 350px;
 }
 
-.edit-profile-form {
+.new-album-form {
     background-color: transparent;
     border: 2px solid white;
     padding: 30px;
@@ -97,8 +97,8 @@ body, html {
     width: 300px;
 }
 
-.edit-profile-form input,
-.edit-profile-btn {
+.new-album-form input, .new-album-form select,
+.add-album-btn {
     display: block;
     width: 100%;
     padding: 10px;
@@ -109,7 +109,7 @@ body, html {
     text-align: center;
 }
 
-.edit-profile-btn {
+.add-album-btn {
     background-color: #F9A825;
     color: white;
     border: none;
@@ -117,13 +117,20 @@ body, html {
     transition: background-color 0.3s;
 }
 
-.edit-profile-btn:hover {
+.add-album-btn:hover {
     background-color: #F57F17;
 }
 
 .text-warning {
     color: #e71717;
 }
+
+
+.new-album-form select {
+    background-color: white;
+}
+
+
 
 
 

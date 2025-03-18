@@ -20,10 +20,10 @@
 
   <!-- Бутоните под информацията -->
   <div class="nav-bar">
-    <a th:href="@{/home}" class="nav-btn">All Albums</a>
-    <a href="/add-album" class="nav-btn">Add New Album</a>
-    <a href="/my-added-albums" class="nav-btn">My Added Albums</a>
-    <a href="/my-favorites" class="nav-btn">My Favorite Albums</a>
+    <a th:href="@{/home}" class="nav-btn-active">All Albums</a>
+    <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
+    <a href="/my-added-albums" class="nav-btn">Uploaded Albums</a>
+    <a href="/my-favorites" class="nav-btn">Favorite Albums</a>
     <a href="/my-reviews" class="nav-btn">My Reviews</a>
     <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
     <a href="/users" class="nav-btn">Users</a>

@@ -41,7 +41,7 @@ body, html {
     flex-grow: 1;
 }
 
-.nav-btn {
+.nav-btn,.nav-btn-active {
     color: white;
     font-size: 1.2rem;
     text-decoration: none;
@@ -49,6 +49,10 @@ body, html {
     font-weight: bold;
     transition: color 0.3s;
     text-align: center;
+}
+
+.nav-btn-active{
+    color: #F9A825;
 }
 
 .nav-btn:hover {

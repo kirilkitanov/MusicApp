@@ -22,11 +22,11 @@
     <!-- Бутоните под информацията -->
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
-        <a href="/add-album" class="nav-btn">Add New Album</a>
-        <a href="/my-albums" class="nav-btn">My Albums</a>
-        <a href="/my-favorites" class="nav-btn">My Favorite Albums</a>
+        <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
+        <a href="/my-albums" class="nav-btn">Uploaded Albums</a>
+        <a href="/my-favorites" class="nav-btn">Favorite Albums</a>
         <a href="/my-reviews" class="nav-btn">My Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn-active">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -52,13 +52,13 @@
         <p><strong>User id: </strong> <span th:text="${user.id}"></span></p>
 
         <input type="text" placeholder="First Name" th:field="*{firstName}">
-        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-warning"></p>
 
         <input type="text" placeholder="Last Name" th:field="*{lastName}">
-        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-warning"></p>
 
         <input type="email" placeholder="Email" th:field="*{email}">
-        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning"></p>
 
         <button type="submit" class="edit-profile-btn">Save Changes</button>
     </form>

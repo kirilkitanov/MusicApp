@@ -1,5 +1,5 @@
 package app.album.model;
 
 public enum Genre {
-    ROCK, CLASSIC, POP, KPOP;
+    CLASSICAL, POP, JAZZ, BLUES, ROCK, METAL, SOUL, DANCE, KPOP, ELECTRONIC, FOLK;
 }
