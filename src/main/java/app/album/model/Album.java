@@ -40,6 +40,10 @@ public class Album {
     private String releaseDate;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AlbumStatus albumStatus;
+
+    @Column(nullable = false)
     private LocalDateTime createdOn;
 
 
