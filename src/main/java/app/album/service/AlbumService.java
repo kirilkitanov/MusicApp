@@ -7,11 +7,14 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.NewAlbumRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AlbumService {
@@ -45,6 +48,25 @@ public class AlbumService {
 
     public List<Album> findAlbumsByUser(User user) {
 
-        return albumRepository.findByUser(user);
+        return albumRepository.findByUserOrderByCreatedOnDesc(user);
+
+    }
+
+    public void changeAlbumStatus(UUID albumId, UUID userId) {
+
+        Optional<Album> optionalAlbum = albumRepository.findByIdAndUserId(albumId, userId);
+        if (optionalAlbum.isEmpty()){
+            throw new RuntimeException("Album with id [%s] does not belong to user with id [%s]".formatted(albumId, userId));
+        }
+
+        Album album = optionalAlbum.get();
+
+        if (album.getAlbumStatus() == AlbumStatus.VISIBLE){
+            album.setAlbumStatus(AlbumStatus.INVISIBLE);
+        } else {
+            album.setAlbumStatus(AlbumStatus.VISIBLE);
+        }
+
+        albumRepository.save(album);
     }
 }

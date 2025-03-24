@@ -50,7 +50,8 @@ public class User {
     private String lastName;
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OrderBy("createdOn DESC")
     private List<Album> albums = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

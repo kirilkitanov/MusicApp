@@ -37,6 +37,7 @@
     <table class="album-table">
         <thead>
         <tr>
+            <th>Cover</th>
             <th>Artist</th>
             <th>Album</th>
             <th>Genre </th>
@@ -47,17 +48,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Iron Maiden</td>
-            <td>The number of the beast</td>
-            <td>Metal</td>
-            <td>1983</td>
+        <tr th:each="album : ${uploadedAlbums}">
             <td>
-                <span text=""></span>
+                <img th:src="${album.albumCover}" width="35px" height="35px">
             </td>
+            <td th:text="${album.artistName}">Artist Name</td>
+            <td th:text="${album.albumName}">Album Name</td>
+            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
+            <td th:text="${album.releaseDate}">Release Date</td>
+            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}">Status</td>
             <td>
-                <form method="" action="">
-                    <button type="submit" class="status-toggle-btn">Hide</button>
+                <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
+                    <button type="submit" class="status-toggle-btn"
+                            th:text="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'Hide' : 'Show'}">
                     </button>
                 </form>
             </td>
@@ -68,26 +71,6 @@
                 </form>
             </td>
         </tr>
-
-        <tr>
-            <td>Artist Name 2</td>
-            <td>Artist Album 2</td>
-            <td>Genre 2</td>
-            <td>2023-10-15</td>
-            <td>Inactive</td>
-            <td>
-                <form method="" action="">
-                    <button type="submit" class="status-toggle-btn">Show</button>
-                </form>
-            </td>
-            <td>
-                <form method="" action="">
-                    <button type="submit" class="status-toggle-btn">Edit</button>
-                </form>
-            </td>
-        </tr>
-
-
         </tbody>
     </table>
 </div>
