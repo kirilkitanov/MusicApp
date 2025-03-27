@@ -5,7 +5,9 @@ import app.album.service.AlbumService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;
+import app.web.dto.EditAlbumRequest;
 import app.web.dto.NewAlbumRequest;
+import app.web.mapper.DtoMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
 
@@ -81,6 +84,41 @@ public class AlbumController {
         return "redirect:/albums/added";
     }
 
+    @GetMapping("/{id}/edit")
+    public ModelAndView getEditAlbumPage(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) throws AccessDeniedException {
+
+        User user = userService.getById(authenticationDetails.getUserId());
+
+        Album album = albumService.findAndCheckAlbumOwnership(id, authenticationDetails.getUserId());
+
+        EditAlbumRequest editAlbumRequest = DtoMapper.mapAlbumToEditAlbumRequest(album);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("edit-album");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("editAlbumRequest", editAlbumRequest);
+
+        return modelAndView;
+    }
+
+    @PutMapping("/{id}/edit")
+    public ModelAndView updateEditAlbumPage (@PathVariable UUID id, @Valid EditAlbumRequest editAlbumRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) throws AccessDeniedException {
+
+        if (bindingResult.hasErrors()) {
+            User user = userService.getById(authenticationDetails.getUserId());
+            Album album = albumService.findAndCheckAlbumOwnership(id, authenticationDetails.getUserId());
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("edit-album");
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("editAlbumRequest", editAlbumRequest);
+            return modelAndView;
+        }
+
+        User user = userService.getById(authenticationDetails.getUserId());
+        albumService.updateAlbum(id, editAlbumRequest, user);
+
+        return new ModelAndView("redirect:/albums/added");
+    }
 
 
 

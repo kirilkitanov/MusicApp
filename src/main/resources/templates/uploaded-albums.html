@@ -65,7 +65,7 @@
                 </form>
             </td>
             <td>
-                <form method="" action="">
+                <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
                     <button type="submit" class="status-toggle-btn">Edit</button>
                     </button>
                 </form>

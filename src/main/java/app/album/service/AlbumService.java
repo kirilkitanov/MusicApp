@@ -5,12 +5,14 @@ import app.album.model.AlbumStatus;
 import app.album.repository.AlbumRepository;
 import app.user.model.User;
 import app.user.service.UserService;
+import app.web.dto.EditAlbumRequest;
 import app.web.dto.NewAlbumRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -66,6 +68,37 @@ public class AlbumService {
         } else {
             album.setAlbumStatus(AlbumStatus.VISIBLE);
         }
+
+        albumRepository.save(album);
+    }
+
+
+    public Album findAndCheckAlbumOwnership(UUID albumId, UUID userId) throws AccessDeniedException {
+
+        Optional<Album> optionalAlbum = albumRepository.findById(albumId);
+
+        if (optionalAlbum.isEmpty() || !optionalAlbum.get().getUser().getId().equals(userId)) {
+        throw new AccessDeniedException("You do not have permission to edit this album.");
+        }
+
+        return optionalAlbum.get();
+    }
+    @CacheEvict(value = "albums", allEntries = true)
+    public void updateAlbum(UUID id, EditAlbumRequest editAlbumRequest, User user) throws AccessDeniedException{
+
+        Optional<Album> optionalAlbum = albumRepository.findByIdAndUserId(id, user.getId());
+
+        if (optionalAlbum.isEmpty()) {
+            throw new AccessDeniedException("You do not have permission to update this album.");
+        }
+
+        Album album = optionalAlbum.get();
+
+        album.setAlbumName(editAlbumRequest.getAlbumName());
+        album.setArtistName(editAlbumRequest.getArtistName());
+        album.setGenre(editAlbumRequest.getGenre());
+        album.setAlbumCover(editAlbumRequest.getAlbumCover());
+        album.setReleaseDate(editAlbumRequest.getReleaseDate());
 
         albumRepository.save(album);
     }
