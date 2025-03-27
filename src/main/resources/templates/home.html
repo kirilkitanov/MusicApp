@@ -34,33 +34,37 @@
 
 <!-- Дясната част -->
 <div class="album-container">
-    <div class="album-row">
+    
+    <div class="album-row" th:each="album : ${albums}">
+
         <div class="album-card">
 
             <div class="album-icons">
-                <form method="post" action="">
+                <form method="" action="">
                     <button type="submit" class="icon-btn">
-                        <img th:src="@{/images/star-regular.svg}" alt="Star Icon" width="20" height="20">
+                        <img th:src="@{/images/heart-solid.svg}" alt="Heart Icon" width="20" height="20">
                     </button>
                 </form>
-
-                <form method="post" action="">
+                <form method="" action="">
                     <button type="submit" class="icon-btn">
                         <img th:src="@{/images/heart-regular.svg}" alt="Heart Icon" width="20" height="20">
                     </button>
                 </form>
             </div>
 
-            <img src="album1.jpg" alt="Album 1">
-            <h3>Album Name 1</h3>
-            <p>Rating: 4.5</p>
+            <a th:href="'/albums/' + ${album.id}">
+                <img th:src="${album.albumCover}" alt="Album Cover">
+            </a>
+
+            <h3 th:text="${album.albumName}">Album Name</h3>
+            <p th:text="${album.artistName}">Artist Name</p>
+            <p th:text="${album.genre}">Genre</p>
+            <p th:text="${album.releaseDate}">Release Date</p>
 
             <div class="button-group">
                 <button class="album-btn">Add Review</button>
             </div>
         </div>
-
-
     </div>
 </div>
 </body>

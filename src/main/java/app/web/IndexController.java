@@ -1,5 +1,7 @@
 package app.web;
 
+import app.album.model.Album;
+import app.album.service.AlbumService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;
@@ -16,14 +18,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class IndexController {
 
     private final UserService userService;
+    private final AlbumService albumService;
 
     @Autowired
-    public IndexController(UserService userService) {
+    public IndexController(UserService userService, AlbumService albumService) {
         this.userService = userService;
+        this.albumService = albumService;
     }
 
 
@@ -76,9 +82,12 @@ public class IndexController {
 
         User user = userService.getById(authenticationDetails.getUserId());
 
+        List<Album> albums = albumService.getAllAlbums();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("albums", albums);
 
         return modelAndView;
     }

@@ -102,4 +102,9 @@ public class AlbumService {
 
         albumRepository.save(album);
     }
+
+    public List<Album> getAllAlbums() {
+        return albumRepository.findAll();
+
+    }
 }
