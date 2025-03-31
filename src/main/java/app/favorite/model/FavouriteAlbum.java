@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Favorite {
+public class FavouriteAlbum {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

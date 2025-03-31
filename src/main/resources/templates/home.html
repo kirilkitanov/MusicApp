@@ -23,7 +23,7 @@
         <a th:href="@{/home}" class="nav-btn-active">All Albums</a>
         <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
         <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
-        <a href="/my-favorites" class="nav-btn">Favorite Albums</a>
+        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
         <a href="/my-reviews" class="nav-btn">My Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
@@ -34,35 +34,38 @@
 
 <!-- Дясната част -->
 <div class="album-container">
-    
-    <div class="album-row" th:each="album : ${albums}">
 
-        <div class="album-card">
+    <div class="album-row">
+
+        <div class="album-card" th:each="album : ${albums}" th:if="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE}">
+
 
             <div class="album-icons">
-                <form method="" action="">
+                <form th:if="${#lists.contains(favouriteAlbums, album.id.toString())}"
+                      th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.id}}">
                     <button type="submit" class="icon-btn">
                         <img th:src="@{/images/heart-solid.svg}" alt="Heart Icon" width="20" height="20">
                     </button>
                 </form>
-                <form method="" action="">
+
+                <form th:if="${!#lists.contains(favouriteAlbums, album.id.toString())}"
+                      th:action="@{'/albums/favourites/' + ${album.id}}" method="POST">
                     <button type="submit" class="icon-btn">
                         <img th:src="@{/images/heart-regular.svg}" alt="Heart Icon" width="20" height="20">
                     </button>
                 </form>
             </div>
 
-            <a th:href="'/albums/' + ${album.id}">
-                <img th:src="${album.albumCover}" alt="Album Cover">
-            </a>
 
+            <img th:src="${album.albumCover}" alt="Album Cover">
             <h3 th:text="${album.albumName}">Album Name</h3>
             <p th:text="${album.artistName}">Artist Name</p>
-            <p th:text="${album.genre}">Genre</p>
-            <p th:text="${album.releaseDate}">Release Date</p>
+
 
             <div class="button-group">
-                <button class="album-btn">Add Review</button>
+                <form th:action="@{'/albums/' + ${album.id} + '/view'}" method="get">
+                    <button type="submit" class="album-btn">See more</button>
+                </form>
             </div>
         </div>
     </div>

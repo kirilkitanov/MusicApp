@@ -32,7 +32,8 @@ body, html {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    box-sizing: border-box; /
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .nav-bar {
@@ -59,68 +60,6 @@ body, html {
     color: #F9A825;
 }
 
-.album-container {
-    margin-left: 30px;
-    padding: 20px;
-    overflow-y: auto;
-    flex-grow: 1;
-}
-
-.album-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.album-card {
-    background-color: white;
-    width: 22%;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.album-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.album-card h3 {
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.album-card p {
-    color: #777;
-}
-
-.album-card:hover {
-    transform: translateY(-5px);
-}
-
-.album-btn {
-    margin-top: 10px;
-    background-color: #F9A825;
-    color: white;
-    border: none;
-    padding: 8px 10px;
-    font-size: 0.8rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.album-btn:hover {
-    background-color: #F57F17;
-}
-
-.album-btn:focus {
-    outline: none;
-}
-
 .separator {
     width: 2px;
     background: white;
@@ -140,6 +79,67 @@ body, html {
 
 .logout-btn:hover {
     color: #F9A825;
+}
+
+/* Дясна част*/
+.album-container {
+    margin-left: 50px;
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.album-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.album-card {
+    background-color: white;
+    width: 230px;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.album-card img {
+    width: 95%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.album-card h3 {
+    font-size: 1rem;
+    color: #333;
+}
+
+.album-card p {
+    color: #777;
+}
+
+.album-card:hover {
+    transform: translateY(-5px);
+}
+
+.album-btn {
+    background-color: #F9A825;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.album-btn:hover {
+    background-color: #F57F17;
+}
+
+.album-btn:focus {
+    outline: none;
 }
 
 .album-icons {

@@ -22,8 +22,8 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn-active">Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
+        <a th:href="@{/albums/favourites}" class="nav-btn-active">Favourite Albums</a>
         <a href="/my-reviews" class="nav-btn">My Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
@@ -42,34 +42,35 @@
             <th>Album</th>
             <th>Genre </th>
             <th>Release Date</th>
-            <th>Status</th>
-            <th>Change Status</th>
-            <th>Edit Album</th>
+            <th>Show Album</th>
+            <th>Remove Album</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="album : ${uploadedAlbums}">
+        <tr th:each="album : ${favorites}" th:if="${album.album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE}">
             <td>
-                <img th:src="${album.albumCover}" width="35px" height="35px">
+                <img th:src="${album.album.albumCover}" width="35px" height="35px">
             </td>
-            <td th:text="${album.artistName}">Artist Name</td>
-            <td th:text="${album.albumName}">Album Name</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
-            <td th:text="${album.releaseDate}">Release Date</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}">Status</td>
+            <td th:text="${album.album.artistName}">Artist Name</td>
+            <td th:text="${album.album.albumName}">Album Name</td>
+            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.album.genre))}">Genre</td>
+            <td th:text="${album.album.releaseDate}">Release Date</td>
+
             <td>
-                <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
-                    <button type="submit" class="status-toggle-btn"
-                            th:text="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'Hide' : 'Show'}">
+                <form method="" action="">
+                    <button type="submit" class="status-toggle-btn">See more</button>
                     </button>
                 </form>
             </td>
+
             <td>
-                <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
-                    <button type="submit" class="status-toggle-btn">Edit</button>
+                <form th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.album.id}}">
+                    <button type="submit" class="status-toggle-btn">Remove</button>
                     </button>
                 </form>
             </td>
+
+
         </tr>
         </tbody>
     </table>

@@ -2,6 +2,7 @@ package app.web;
 
 import app.album.model.Album;
 import app.album.service.AlbumService;
+import app.favorite.service.FavouriteAlbumService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.UUID;
+
 
 @Controller
 public class IndexController {
@@ -26,10 +29,13 @@ public class IndexController {
     private final UserService userService;
     private final AlbumService albumService;
 
+    private final FavouriteAlbumService favouriteAlbumService;
+
     @Autowired
-    public IndexController(UserService userService, AlbumService albumService) {
+    public IndexController(UserService userService, AlbumService albumService, FavouriteAlbumService favouriteAlbumService) {
         this.userService = userService;
         this.albumService = albumService;
+        this.favouriteAlbumService = favouriteAlbumService;
     }
 
 
@@ -83,11 +89,16 @@ public class IndexController {
         User user = userService.getById(authenticationDetails.getUserId());
 
         List<Album> albums = albumService.getAllAlbums();
+        List<String> favouriteAlbums = favouriteAlbumService.getFavouriteAlbumByUser(user)
+                .stream()
+                .map(UUID::toString)
+                .toList();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         modelAndView.addObject("user", user);
         modelAndView.addObject("albums", albums);
+        modelAndView.addObject("favouriteAlbums", favouriteAlbums);
 
         return modelAndView;
     }

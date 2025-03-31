@@ -1,6 +1,6 @@
 package app.album.model;
 
-import app.favorite.model.Favorite;
+import app.favorite.model.FavouriteAlbum;
 import app.review.model.Review;
 import app.user.model.User;
 import jakarta.persistence.*;
@@ -51,7 +51,7 @@ public class Album {
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
-    private List<Favorite> favorites = new ArrayList<>();
+    private List<FavouriteAlbum> favouriteAlbums = new ArrayList<>();
 
     @ManyToOne
     private User user;

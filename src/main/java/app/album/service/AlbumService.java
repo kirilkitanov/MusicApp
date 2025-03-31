@@ -104,7 +104,11 @@ public class AlbumService {
     }
 
     public List<Album> getAllAlbums() {
-        return albumRepository.findAll();
+        return albumRepository.OrderByCreatedOnDesc();
 
+    }
+
+    public Album getById(UUID albumId) {
+        return albumRepository.findById(albumId).orElseThrow(() -> new RuntimeException("Album not found with id [%s]".formatted(albumId)));
     }
 }

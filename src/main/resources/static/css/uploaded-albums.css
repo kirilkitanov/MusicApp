@@ -147,7 +147,6 @@ body, html {
     padding: 20px;
     overflow-y: auto;
     flex-grow: 1;
-    max-width: 1000px;
 }
 
 .album-table {
