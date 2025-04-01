@@ -68,6 +68,18 @@ public class FavouriteAlbumController {
 
     }
 
+    @DeleteMapping("/{albumId}/home")
+    public String deleteFavouriteAlbumAndRedirectHome(@PathVariable UUID albumId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails){
+
+        User user = userService.getById(authenticationDetails.getUserId());
+        Album album = albumService.getById(albumId);
+
+        favouriteAlbumService.deleteFavourites(user, album);
+
+        return "redirect:/home";
+
+    }
+
 
 
 

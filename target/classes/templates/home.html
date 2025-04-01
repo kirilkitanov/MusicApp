@@ -42,7 +42,7 @@
 
             <div class="album-icons">
                 <form th:if="${#lists.contains(favouriteAlbums, album.id.toString())}"
-                      th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.id}}">
+                      th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.id} + '/home'}">
                     <button type="submit" class="icon-btn">
                         <img th:src="@{/images/heart-solid.svg}" alt="Heart Icon" width="20" height="20">
                     </button>
