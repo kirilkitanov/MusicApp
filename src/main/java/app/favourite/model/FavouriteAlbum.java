@@ -1,4 +1,4 @@
-package app.favorite.model;
+package app.favourite.model;
 
 import app.album.model.Album;
 import app.user.model.User;

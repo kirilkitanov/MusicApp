@@ -29,10 +29,15 @@ public class EditAlbumRequest {
     @Size(max = 20, message = "Artist's name can't have more than 40 symbols")
     private String artistName;
 
+    @NotNull(message = "Please select genre")
     private Genre genre;
 
     @URL(message = "Requires correct web link format")
     private String albumCover;
 
+    @Size(max = 20, message = "Release Date can't have more than 20 symbols")
     private String releaseDate;
+
+    @Size(max = 1500, message = "Description can't have more than 1500 symbols")
+    private String description;
 }

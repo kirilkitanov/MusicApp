@@ -1,6 +1,6 @@
 package app.album.model;
 
-import app.favorite.model.FavouriteAlbum;
+import app.favourite.model.FavouriteAlbum;
 import app.review.model.Review;
 import app.user.model.User;
 import jakarta.persistence.*;
@@ -30,8 +30,11 @@ public class Album {
     private String artistName;
 
     @Column
+    private String description;
+
+    @Column
     @Enumerated(EnumType.STRING)
-    private Genre genre; //ROCK, CLASSIC, POP, KPOP;
+    private Genre genre;
 
     @Column
     private String albumCover;

@@ -56,8 +56,7 @@
                 </form>
             </div>
 
-
-            <img th:src="${album.albumCover}" alt="Album Cover">
+            <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" alt="Album Cover">
             <h3 th:text="${album.albumName}">Album Name</h3>
             <p th:text="${album.artistName}">Artist Name</p>
 

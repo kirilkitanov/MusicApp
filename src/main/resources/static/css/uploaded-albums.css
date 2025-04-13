@@ -191,3 +191,11 @@ body, html {
     outline: none;
 }
 
+.text-success {
+    color: lawngreen !important;
+}
+
+.text-danger {
+    color: red !important;
+}
+

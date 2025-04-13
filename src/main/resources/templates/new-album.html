@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Music App</title>
-    <link rel="stylesheet" href="/css/new-album.css">
+    <link href="/css/new-album.css" rel="stylesheet">
 </head>
 <body class="home-page">
 
@@ -21,15 +21,15 @@
 
     <!-- Бутоните под информацията -->
     <div class="nav-bar">
-        <a th:href="@{/home}" class="nav-btn">All Albums</a>
-        <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn-active">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
-        <a href="/my-reviews" class="nav-btn">My Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
-        <a href="/users" class="nav-btn">Users</a>
+        <a class="nav-btn" th:href="@{/home}">All Albums</a>
+        <a class="nav-btn-active" th:href="@{/albums/new}" th:if="${user}">Add Album</a>
+        <a class="nav-btn" th:href="@{/albums/added}">Uploaded Albums</a>
+        <a class="nav-btn" th:href="@{/albums/favourites}">Favourite Albums</a>
+        <a class="nav-btn" href="/my-reviews">My Reviews</a>
+        <a class="nav-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
+        <a class="nav-btn" href="/users">Users</a>
     </div>
-    <a href="/logout" class="nav-btn logout-btn">Logout</a>
+    <a class="nav-btn logout-btn" href="/logout">Logout</a>
 </div>
 <div class="separator"></div>
 
@@ -43,23 +43,30 @@
 
         <h2>Add Album</h2>
 
-        <input type="text" placeholder="Artist" th:field="*{artistName}">
-        <p th:if="${#fields.hasErrors('artistName')}" th:errors="*{artistName}" class="text-warning"></p>
+        <input placeholder="Artist" th:field="*{artistName}" type="text">
+        <p class="text-warning" th:errors="*{artistName}" th:if="${#fields.hasErrors('artistName')}"></p>
 
-        <input type="text" placeholder="Album" th:field="*{albumName}">
-        <p th:if="${#fields.hasErrors('albumName')}" th:errors="*{albumName}" class="text-warning"></p>
+        <input placeholder="Album" th:field="*{albumName}" type="text">
+        <p class="text-warning" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}"></p>
 
-        <input type="text" placeholder="Release Date" th:field="*{releaseDate}">
+        <input placeholder="Release Date" th:field="*{releaseDate}" type="text">
+        <p th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}" class="text-warning"></p>
 
-        <select id="genre" name="genre" th:field="*{genre}" class=".new-album-form select">
+        <input placeholder="Description" th:field="*{description}" type="text">
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-warning"></p>
+
+        <select class=".new-album-form select" id="genre" name="genre" th:field="*{genre}">
+            <option value="">Select Genre</option>
             <option th:each="genre : ${T(app.album.model.Genre).values()}"
-                    th:value="${genre}"
-                    th:text="${#strings.capitalize(#strings.toLowerCase(genre))}">Genre</option>
+                    th:text="${#strings.capitalize(#strings.toLowerCase(genre))}"
+                    th:value="${genre}">Genre
+            </option>
         </select>
+        <p class="text-warning" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
 
-        <input type="url" placeholder="Cover Url" th:field="*{albumCover}">
+        <input placeholder="Cover Url" th:field="*{albumCover}" type="url">
 
-        <button type="submit" class="add-album-btn">Add album</button>
+        <button class="add-album-btn" type="submit">Add album</button>
     </form>
 </div>
 

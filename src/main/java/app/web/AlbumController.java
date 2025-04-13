@@ -48,17 +48,20 @@ public class AlbumController {
     }
 
     @PostMapping
-    public String addNewAlbum(@Valid NewAlbumRequest newAlbumRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    public ModelAndView addNewAlbum(@Valid NewAlbumRequest newAlbumRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        User user = userService.getById(authenticationDetails.getUserId());
 
         if (bindingResult.hasErrors()) {
-            return "new-album";
+            ModelAndView modelAndView = new ModelAndView("new-album");
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("newAlbumRequest", newAlbumRequest);
+            return modelAndView;
         }
-
-         User user = userService.getById(authenticationDetails.getUserId());
 
         albumService.addNewAlbum(newAlbumRequest, user);
 
-        return "redirect:/home";
+        return new ModelAndView("redirect:/home");
     }
 
     @GetMapping("/added")

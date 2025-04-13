@@ -49,7 +49,7 @@
         <tbody>
         <tr th:each="album : ${favorites}" th:if="${album.album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE}">
             <td>
-                <img th:src="${album.album.albumCover}" width="35px" height="35px">
+                <img th:src="${album.album.albumCover != null && album.album.albumCover != '' ? album.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
             </td>
             <td th:text="${album.album.artistName}">Artist Name</td>
             <td th:text="${album.album.albumName}">Album Name</td>
@@ -59,17 +59,14 @@
             <td>
                 <form method="" action="">
                     <button type="submit" class="status-toggle-btn">See more</button>
-                    </button>
                 </form>
             </td>
 
             <td>
                 <form th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.album.id}}">
                     <button type="submit" class="status-toggle-btn">Remove</button>
-                    </button>
                 </form>
             </td>
-
 
         </tr>
         </tbody>

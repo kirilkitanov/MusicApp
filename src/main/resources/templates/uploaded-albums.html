@@ -50,13 +50,14 @@
         <tbody>
         <tr th:each="album : ${uploadedAlbums}">
             <td>
-                <img th:src="${album.albumCover}" width="35px" height="35px">
+                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
             </td>
             <td th:text="${album.artistName}">Artist Name</td>
             <td th:text="${album.albumName}">Album Name</td>
             <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
             <td th:text="${album.releaseDate}">Release Date</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}">Status</td>
+            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}"
+                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-success' : 'text-danger'}">Status</td>
             <td>
                 <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
                     <button type="submit" class="status-toggle-btn"
@@ -67,7 +68,6 @@
             <td>
                 <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
                     <button type="submit" class="status-toggle-btn">Edit</button>
-                    </button>
                 </form>
             </td>
         </tr>

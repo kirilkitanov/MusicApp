@@ -1,7 +1,7 @@
-package app.favorite.repository;
+package app.favourite.repository;
 
 import app.album.model.Album;
-import app.favorite.model.FavouriteAlbum;
+import app.favourite.model.FavouriteAlbum;
 import app.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,8 +14,7 @@ public interface FavouriteAlbumRepository extends JpaRepository<FavouriteAlbum, 
 
     List<FavouriteAlbum> findByUserOrderByAddedOnDesc(User user);
 
-
-  boolean existsByUserAndAlbum(User user, Album album);
+    boolean existsByUserAndAlbum(User user, Album album);
 
     Optional<FavouriteAlbum> findByUserAndAlbum(User user, Album album);
 }

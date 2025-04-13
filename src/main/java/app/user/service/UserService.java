@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
 
         Optional<User> optionEmail = userRepository.findByEmail(registerRequest.getEmail());
         if (optionEmail.isPresent()) {
-            throw new RuntimeException ("Email [%s] already exist.".formatted(registerRequest.getUsername()));
+            throw new RuntimeException ("Email [%s] already exist.".formatted(registerRequest.getEmail()));
         }
 
         User user = User.builder()

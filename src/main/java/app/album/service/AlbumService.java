@@ -36,6 +36,7 @@ public class AlbumService {
         Album album = Album.builder()
                 .albumName(newAlbumRequest.getAlbumName())
                 .artistName(newAlbumRequest.getArtistName())
+                .description(newAlbumRequest.getDescription())
                 .genre(newAlbumRequest.getGenre())
                 .albumCover(newAlbumRequest.getAlbumCover())
                 .releaseDate(newAlbumRequest.getReleaseDate())
@@ -96,6 +97,7 @@ public class AlbumService {
 
         album.setAlbumName(editAlbumRequest.getAlbumName());
         album.setArtistName(editAlbumRequest.getArtistName());
+        album.setDescription(editAlbumRequest.getDescription());
         album.setGenre(editAlbumRequest.getGenre());
         album.setAlbumCover(editAlbumRequest.getAlbumCover());
         album.setReleaseDate(editAlbumRequest.getReleaseDate());

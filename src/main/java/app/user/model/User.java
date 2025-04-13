@@ -2,7 +2,7 @@ package app.user.model;
 
 
 import app.album.model.Album;
-import app.favorite.model.FavouriteAlbum;
+import app.favourite.model.FavouriteAlbum;
 import app.review.model.Review;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,6 +55,7 @@ public class User {
     private List<Album> albums = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OrderBy("createdOn DESC")
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

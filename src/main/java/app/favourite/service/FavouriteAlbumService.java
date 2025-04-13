@@ -1,8 +1,8 @@
-package app.favorite.service;
+package app.favourite.service;
 
 import app.album.model.Album;
-import app.favorite.model.FavouriteAlbum;
-import app.favorite.repository.FavouriteAlbumRepository;
+import app.favourite.model.FavouriteAlbum;
+import app.favourite.repository.FavouriteAlbumRepository;
 import app.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
