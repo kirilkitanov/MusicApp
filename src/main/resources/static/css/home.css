@@ -63,8 +63,9 @@ body, html {
 .separator {
     width: 2px;
     background: white;
-    height: 100%;
-    left: 50%;
+    height: auto;
+    flex-shrink: 0;
+    position: relative;
 }
 
 .logout-btn {
@@ -132,6 +133,7 @@ body, html {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-decoration: none;
 }
 
 .album-btn:hover {

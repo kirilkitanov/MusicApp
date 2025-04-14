@@ -52,7 +52,7 @@
         <input placeholder="Release Date" th:field="*{releaseDate}" type="text">
         <p th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}" class="text-warning"></p>
 
-        <input placeholder="Description" th:field="*{description}" type="text">
+        <textarea placeholder="Description" th:field="*{description}" type="text"></textarea>
         <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-warning"></p>
 
         <select class=".new-album-form select" id="genre" name="genre" th:field="*{genre}">

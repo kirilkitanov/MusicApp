@@ -24,6 +24,7 @@ public class DtoMapper {
                 .id(album.getId())
                 .albumName(album.getAlbumName())
                 .artistName(album.getArtistName())
+                .description(album.getDescription())
                 .genre(album.getGenre())
                 .albumCover(album.getAlbumCover())
                 .releaseDate(album.getReleaseDate())

@@ -29,7 +29,7 @@ public class Album {
     @Column(nullable = false)
     private String artistName;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column

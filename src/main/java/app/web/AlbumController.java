@@ -123,6 +123,18 @@ public class AlbumController {
         return new ModelAndView("redirect:/albums/added");
     }
 
+    @GetMapping("/{id}/view")
+    public ModelAndView viewAlbumDetails(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getUserId());
+        Album album = albumService.getById(id);
+
+        ModelAndView modelAndView = new ModelAndView("view-album");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("album", album);
+
+        return modelAndView;
+    }
+
 
 
 }

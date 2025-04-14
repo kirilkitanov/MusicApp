@@ -101,6 +101,7 @@ public class AlbumService {
         album.setGenre(editAlbumRequest.getGenre());
         album.setAlbumCover(editAlbumRequest.getAlbumCover());
         album.setReleaseDate(editAlbumRequest.getReleaseDate());
+        album.setDescription(editAlbumRequest.getDescription());
 
         albumRepository.save(album);
     }

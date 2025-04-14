@@ -57,7 +57,7 @@
             <td th:text="${album.album.releaseDate}">Release Date</td>
 
             <td>
-                <form method="" action="">
+                <form th:action="@{'/albums/' + ${album.album.id} + '/view'}" method="get">
                     <button type="submit" class="status-toggle-btn">See more</button>
                 </form>
             </td>

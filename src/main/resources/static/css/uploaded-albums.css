@@ -166,8 +166,9 @@ body, html {
     color: white;
 }
 
-.album-table td {
-    color: white
+.album-table td, a {
+    color: white;
+    text-decoration: none;
 }
 
 .status-toggle-btn {

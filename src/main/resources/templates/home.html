@@ -62,9 +62,7 @@
 
 
             <div class="button-group">
-                <form th:action="@{'/albums/' + ${album.id} + '/view'}" method="get">
-                    <button type="submit" class="album-btn">See more</button>
-                </form>
+                <a th:href="@{'/albums/' + ${album.id} + '/view'}" class="album-btn">See more</a>
             </div>
         </div>
     </div>

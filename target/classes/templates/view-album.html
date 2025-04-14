@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App</title>
+    <link rel="stylesheet" href="/css/view-album.css">
+</head>
+<body class="home-page">
+<div class="main-container">
+
+<div class="left-side">
+
+    <div class="user-info">
+        <h3>Welcome,</h3>
+        <h3 th:if="${user.firstName != null or user.lastName != null}"
+            th:text="${(user.firstName != null ? user.firstName : '') + (user.lastName != null ? ' ' + user.lastName : '')}">
+        </h3>
+        <h3 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</h3>
+    </div>
+
+    <div class="nav-bar">
+        <a th:href="@{/home}" class="nav-btn">All Albums</a>
+        <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
+        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
+        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a href="/my-reviews" class="nav-btn">My Reviews</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a href="/users" class="nav-btn">Users</a>
+    </div>
+    <a href="/logout" class="nav-btn logout-btn">Logout</a>
+</div>
+<div class="separator"></div>
+
+<!-- Дясната част -->
+<div class="album-container">
+    <div class="album-info">
+        <div class="album-details">
+            <div class="album-image">
+                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" alt="Album Cover">
+            </div>
+            <div class="album-text">
+                <h2><span class="label">Album:</span> <span th:text="${album.albumName}"></span></h2>
+                <h3><span class="label">Artist:</span> <span th:text="${album.artistName}"></span></h3>
+                <h3><span class="label">Released:</span> <span th:text="${album.releaseDate}"></span></h3>
+                <p><span class="label"><b>Description:</b></span>
+                    <span th:text="${album.description}" class="album-description"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="comments-section">
+        <h4>Comments</h4>
+        <div class="existing-comments" >
+            <p text=""></p>
+        </div>
+
+        <form class="new-comment-form" action="" method="">
+            <textarea placeholder="Add a comment" field="" required></textarea>
+            <button type="submit" class="add-comment-btn">Add Review</button>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

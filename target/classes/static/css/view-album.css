@@ -5,11 +5,18 @@ body, html {
     font-family: 'Arial', sans-serif;
 }
 
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
 .home-page {
     background-color: #080838;
-    display: flex;
     height: 100vh;
 }
+
 
 .user-info {
     text-align: center;
@@ -30,7 +37,8 @@ body, html {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    box-sizing: border-box; /
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .nav-bar {
@@ -39,7 +47,7 @@ body, html {
     flex-grow: 1;
 }
 
-.nav-btn, .nav-btn-active {
+.nav-btn,.nav-btn-active {
     color: white;
     font-size: 1.2rem;
     text-decoration: none;
@@ -49,7 +57,7 @@ body, html {
     text-align: center;
 }
 
-.nav-btn-active{
+.nav-btn-active, .label {
     color: #F9A825;
 }
 
@@ -60,8 +68,9 @@ body, html {
 .separator {
     width: 2px;
     background: white;
-    height: 100%;
-    left: 50%;
+    height: auto;
+    flex-shrink: 0;
+    position: relative;
 }
 
 .logout-btn {
@@ -78,54 +87,85 @@ body, html {
     color: #F9A825;
 }
 
-/* Дясна част*/
-.edit-profile-container {
+/* Дясната част */
+.album-container {
+    margin-left: 50px;
+    padding: 20px;
+    overflow-y: auto;
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
     color: white;
-    margin: 350px;
 }
 
-.edit-profile-form {
-    background-color: transparent;
+.album-info {
+    margin-bottom: 20px;
+    padding: 20px;
     border: 2px solid white;
-    padding: 30px;
     border-radius: 10px;
-    text-align: center;
-    width: 300px;
 }
 
-.edit-profile-form input,
-.new-album-form textarea,
-.edit-profile-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
+.album-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.album-text {
+    width: 70%;
+    overflow: hidden;
+}
+
+.album-image img {
+    width: 250px;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.album-description {
+    white-space: pre-wrap;
+}
+
+/* Секцията с коментарите */
+.comments-section {
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.existing-comments {
+    margin-bottom: 15px;
+}
+
+.new-comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-comment-form textarea {
     margin: 10px 0;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    box-sizing: border-box;
-    text-align: center;
+    outline: none;
 }
 
-.edit-profile-btn {
+.add-comment-btn {
     background-color: #F9A825;
     color: white;
     border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.edit-profile-btn:hover {
+.add-comment-btn:hover {
     background-color: #F57F17;
 }
 
-.text-warning {
-    color: #e71717;
+.new-album-form select {
+    background-color: white;
 }
-
-
-
 
