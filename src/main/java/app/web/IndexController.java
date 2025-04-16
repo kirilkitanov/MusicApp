@@ -2,7 +2,7 @@ package app.web;
 
 import app.album.model.Album;
 import app.album.service.AlbumService;
-import app.favourite.service.FavouriteAlbumService;
+import app.album.service.FavouriteAlbumService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;

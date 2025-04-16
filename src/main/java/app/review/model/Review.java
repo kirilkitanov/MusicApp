@@ -19,11 +19,17 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String comment;
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
+
+    @Column(nullable = false)
+    private boolean reported = false;
+
+    @Enumerated(EnumType.STRING)
+    private ReportReason reportReason;
 
     @ManyToOne
     private User user;

@@ -44,21 +44,28 @@
                 <h3><span class="label">Artist:</span> <span th:text="${album.artistName}"></span></h3>
                 <h3><span class="label">Released:</span> <span th:text="${album.releaseDate}"></span></h3>
                 <p><span class="label"><b>Description:</b></span>
-                    <span th:text="${album.description}" class="album-description"></span></p>
+                   <span th:text="${album.description}" class="album-description"></span></p>
             </div>
         </div>
-    </div>
-
-    <div class="comments-section">
-        <h4>Comments</h4>
-        <div class="existing-comments" >
-            <p text=""></p>
-        </div>
-
-        <form class="new-comment-form" action="" method="">
-            <textarea placeholder="Add a comment" field="" required></textarea>
+        <form class="new-review-form" th:action="@{/reviews/new}" method="POST" th:object="${newReviewRequest}">
+            <input type="hidden" th:field="*{albumId}"/>
+            <textarea placeholder="Add a review" th:field="*{comment}" ></textarea>
+            <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="text-warning"></p>
             <button type="submit" class="add-comment-btn">Add Review</button>
         </form>
+    </div>
+
+    <div class="reviews-section">
+        <div class="reviews-list">
+            <h4 class="label">All Reviews</h4>
+            <ul>
+                <li th:each="review : ${reviews}">
+                    <p class="label"><span th:text="${review.user.username}">User Name</span>
+                    <span th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy HH:mm')}">Date</span></p>
+                    <p th:text="${review.comment}">Review content</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </div>

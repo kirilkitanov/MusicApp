@@ -22,11 +22,11 @@ public class EditAlbumRequest {
     private UUID id;
 
     @NotBlank(message = "Album name cannot be blank")
-    @Size(max = 40, message = "Album's name can't have more than 40 symbols")
+    @Size(max = 40, message = "Album's name cannot have more than 40 symbols")
     public String albumName;
 
     @NotBlank(message = "Artist cannot be blank")
-    @Size(max = 20, message = "Artist's name can't have more than 40 symbols")
+    @Size(max = 20, message = "Artist's name cannot have more than 40 symbols")
     private String artistName;
 
     @NotNull(message = "Please select genre")
@@ -35,9 +35,9 @@ public class EditAlbumRequest {
     @URL(message = "Requires correct web link format")
     private String albumCover;
 
-    @Size(max = 20, message = "Release Date can't have more than 20 symbols")
+    @Size(max = 20, message = "Release Date cannot have more than 20 symbols")
     private String releaseDate;
 
-    @Size(max = 1500, message = "Description can't have more than 1500 symbols")
+    @Size(max = 1500, message = "Description cannot have more than 1500 symbols")
     private String description;
 }

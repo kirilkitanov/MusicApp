@@ -1,7 +1,7 @@
-package app.favourite.repository;
+package app.album.repository;
 
 import app.album.model.Album;
-import app.favourite.model.FavouriteAlbum;
+import app.album.model.FavouriteAlbum;
 import app.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

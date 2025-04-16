@@ -2,7 +2,7 @@ package app.user.model;
 
 
 import app.album.model.Album;
-import app.favourite.model.FavouriteAlbum;
+import app.album.model.FavouriteAlbum;
 import app.review.model.Review;
 import jakarta.persistence.*;
 import lombok.*;

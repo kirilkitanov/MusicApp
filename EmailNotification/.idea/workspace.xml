@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="97494351-2f66-4156-9067-3433df27d513" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2wx7IRL0G6pg2ujR1DMkGvJ1k3e" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/emailNotification",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "spring.configuration.checksum": "50de7e2ff29f4ed5413b34017a1a5986"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="app.web.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="EmailControllerApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.web" />
+      <option name="MAIN_CLASS_NAME" value="app.web.EmailControllerApiTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailControllerApiTest.sendEmail_shouldReturnCreatedEmail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.web" />
+      <option name="MAIN_CLASS_NAME" value="app.web.EmailControllerApiTest" />
+      <option name="METHOD_NAME" value="sendEmail_shouldReturnCreatedEmail" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailServiceITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app" />
+      <option name="MAIN_CLASS_NAME" value="app.EmailServiceITest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailServiceUTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.service" />
+      <option name="MAIN_CLASS_NAME" value="app.service.EmailServiceUTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app in emailNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="emailNotification" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="app.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.app in emailNotification" />
+        <item itemvalue="JUnit.EmailServiceITest" />
+        <item itemvalue="JUnit.EmailControllerApiTest.sendEmail_shouldReturnCreatedEmail" />
+        <item itemvalue="JUnit.EmailControllerApiTest" />
+        <item itemvalue="JUnit.EmailServiceUTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="97494351-2f66-4156-9067-3433df27d513" name="Changes" comment="" />
+      <created>1746971292921</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746971292921</updated>
+      <workItem from="1746971294835" duration="42268000" />
+      <workItem from="1748104732876" duration="2650000" />
+      <workItem from="1748119677782" duration="943000" />
+      <workItem from="1748120664171" duration="11484000" />
+      <workItem from="1755286357551" duration="787000" />
+      <workItem from="1755542692594" duration="6606000" />
+      <workItem from="1756020847406" duration="30927000" />
+      <workItem from="1756751981252" duration="13956000" />
+      <workItem from="1757018251614" duration="135000" />
+      <workItem from="1757169299518" duration="12398000" />
+      <workItem from="1757507955865" duration="808000" />
+      <workItem from="1757772376583" duration="11791000" />
+      <workItem from="1758308869906" duration="3143000" />
+      <workItem from="1758348026393" duration="2402000" />
+      <workItem from="1758739033362" duration="1373000" />
+      <workItem from="1760027327529" duration="6430000" />
+      <workItem from="1760319079148" duration="3796000" />
+      <workItem from="1760384699867" duration="1939000" />
+      <workItem from="1760457953187" duration="7732000" />
+      <workItem from="1760630650779" duration="3094000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/emailNotification$app_in_emailNotification.ic" NAME="app in emailNotification Coverage Results" MODIFIED="1760459596729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>app.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/emailNotification$EmailServiceUTest.ic" NAME="EmailServiceUTest Coverage Results" MODIFIED="1758739119535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>app.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/emailNotification$EmailServiceITest.ic" NAME="EmailServiceITest Coverage Results" MODIFIED="1760459528968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>app.*</FILTER>
+    </SUITE>
+  </component>
+</project>

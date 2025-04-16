@@ -1,6 +1,5 @@
 package app.album.model;
 
-import app.favourite.model.FavouriteAlbum;
 import app.review.model.Review;
 import app.user.model.User;
 import jakarta.persistence.*;

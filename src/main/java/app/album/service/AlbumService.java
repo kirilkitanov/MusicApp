@@ -4,7 +4,6 @@ import app.album.model.Album;
 import app.album.model.AlbumStatus;
 import app.album.repository.AlbumRepository;
 import app.user.model.User;
-import app.user.service.UserService;
 import app.web.dto.EditAlbumRequest;
 import app.web.dto.NewAlbumRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +21,10 @@ import java.util.UUID;
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
-    private final UserService userService;
 
     @Autowired
-    public AlbumService(AlbumRepository albumRepository, UserService userService) {
+    public AlbumService(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
-        this.userService = userService;
     }
 
 

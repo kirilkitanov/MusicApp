@@ -1,0 +1,44 @@
+[33m4dc547f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix email service exception when adding album and review
+[33me1ec2be[m Added EmailITest
+[33mc7831f2[m Added AlbumITest and fix email service exception during registration
+[33m727a65f[m Added API tests for EmailController
+[33mb856792[m Added API tests for FavouriteAlbumController and ReviewController
+[33m420860e[m Added API tests for UserController
+[33mb6c2ba9[m Added API test for AlbumController
+[33me894e69[m Added API test for IndexController
+[33mf458e72[m Added unit tests for EmailService and for DtoMapper
+[33m5122db7[m Added unit tests for ReviewService
+[33m37f36fa[m Added unit tests for FavouriteAlbumService
+[33mb656351[m Added unit tests for AlbumService
+[33m284a554[m Added unit tests for UserService
+[33m9deafdd[m Handle 404/500 errors and fix email notification skipping
+[33m7fd80d3[m  Add exception handling for registration and profile editing
+[33mbada483[m Integrated YouTube player for albums and added validation to prevent duplicate emails during profile edit
+[33md2b3a2b[m Added role selection upon registration and optional password change
+[33md3f286f[m Add email notifications for user registration and when a review is added to an album.
+[33mc51f9c3[m Fix bugs and add email notifications when a new album is created
+[33m736316f[m Sync email preference between apps
+[33m0bda838[m Add email sending functionality with REST endpoint
+[33meb3b324[m Add email notification service with preference endpoints
+[33mf5b0fe6[m Corrected endpoint naming, fixed some bugs.
+[33m072502b[m Security improvements and bug fixes
+[33meed0413[m Added a scheduler and fixed some bugs.
+[33m5a38924[m Fix thymeleaf template bugs
+[33ma6d4c75[m CSS corrections
+[33m43dcbd9[m Added user reviews page with status and role management
+[33md391f4b[m Added a page for reported reviews with functionalities for deleting and recovering reviews.
+[33mf91ae92[m A new page "My Review" has been added with a deletion functionality
+[33m9f7aad9[m Added functionality for Reason Report Review
+[33md0ce853[m Added functionality for adding reviews to the album view page. Fixed some bugs.
+[33m9b6c3e8[m Add album view page, fix some bugs
+[33mef7abdb[m Merge branch 'main' of https://github.com/kirilkitanov/MusicApp
+[33md01dd45[m Fix some bugs and improve album functionality
+[33m0afb753[m "Favourite" functionality was completed
+[33mdb597ff[m update
+[33m36dd9f6[m update
+[33m8982d3e[m update
+[33mc50f2b3[m update
+[33m4541c88[m update
+[33m43e2dca[m update
+[33mcf8dbb5[m update
+[33m5238bec[m Initial commit

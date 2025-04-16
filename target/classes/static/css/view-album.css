@@ -128,7 +128,7 @@ body, html {
 }
 
 /* Секцията с коментарите */
-.comments-section {
+.reviews-section {
     padding: 20px;
     border: 2px solid white;
     border-radius: 10px;
@@ -138,12 +138,12 @@ body, html {
     margin-bottom: 15px;
 }
 
-.new-comment-form {
+.new-review-form {
     display: flex;
     flex-direction: column;
 }
 
-.new-comment-form textarea {
+.new-review-form textarea {
     margin: 10px 0;
     padding: 10px;
     border: none;
@@ -167,5 +167,13 @@ body, html {
 
 .new-album-form select {
     background-color: white;
+}
+
+.text-warning {
+    color: #e71717;
+}
+
+li::marker {
+    color: #F9A825;
 }
 
