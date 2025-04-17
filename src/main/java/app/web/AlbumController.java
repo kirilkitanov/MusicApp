@@ -58,7 +58,8 @@ public class AlbumController {
         User user = userService.getById(authenticationDetails.getUserId());
 
         if (bindingResult.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView("new-album");
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("new-album");
             modelAndView.addObject("user", user);
             modelAndView.addObject("newAlbumRequest", newAlbumRequest);
             return modelAndView;
@@ -138,7 +139,8 @@ public class AlbumController {
         NewReviewRequest newReviewRequest = new NewReviewRequest();
         newReviewRequest.setAlbumId(id);
 
-        ModelAndView modelAndView = new ModelAndView("view-album");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("view-album");
         modelAndView.addObject("user", user);
         modelAndView.addObject("album", album);
         modelAndView.addObject("newReviewRequest", newReviewRequest);

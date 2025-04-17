@@ -176,4 +176,25 @@ body, html {
 li::marker {
     color: #F9A825;
 }
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-btn {
+    background-color: transparent;
+    color: #F9A825;
+    border: 1px solid #F9A825;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.report-btn:hover {
+    background-color: #F57F17;
+    color: white;
+}
 

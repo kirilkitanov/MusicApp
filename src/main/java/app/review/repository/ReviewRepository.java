@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ReviewRepository  extends JpaRepository<Review, UUID> {
-    List<Review> findByAlbum(Album album);
+    List<Review> findByAlbumOrderByCreatedOnDesc(Album album);
 
 }

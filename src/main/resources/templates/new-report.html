@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Music App</title>
+  <link href="/css/new-album.css" rel="stylesheet">
+</head>
+<body class="home-page">
+
+
+<div class="left-side">
+  <!-- Информация за потребителя -->
+  <div class="user-info">
+    <h3>Welcome,</h3>
+    <h3 th:if="${user.firstName != null or user.lastName != null}"
+        th:text="${(user.firstName != null ? user.firstName : '') + (user.lastName != null ? ' ' + user.lastName : '')}">
+    </h3>
+    <h3 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</h3>
+  </div>
+
+  <!-- Бутоните под информацията -->
+  <div class="nav-bar">
+    <a class="nav-btn" th:href="@{/home}">All Albums</a>
+    <a class="nav-btn" th:href="@{/albums/new}" th:if="${user}">Add Album</a>
+    <a class="nav-btn" th:href="@{/albums/added}">Uploaded Albums</a>
+    <a class="nav-btn" th:href="@{/albums/favourites}">Favourite Albums</a>
+    <a class="nav-btn" href="/my-reviews">My Reviews</a>
+    <a class="nav-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
+    <a class="nav-btn" href="/users">Users</a>
+  </div>
+  <a class="nav-btn logout-btn" href="/logout">Logout</a>
+</div>
+<div class="separator"></div>
+
+<!-- Дясната част -->
+<div class="add-album-container">
+
+  <form class="new-album-form"
+        th:action="@{'/reviews/' + ${review.id} + '/report'}"
+        th:method="PUT"
+        th:object="${reportRequest}">
+
+    <h2>Send Report</h2>
+
+    <textarea readonly placeholder="Review" th:text="${review.comment}" type="text"></textarea>
+
+    <select class=".new-album-form select" th:field="*{reportReason}">
+      <option value="">Select Reason</option>
+      <option th:each="reason : ${T(app.review.model.ReportReason).values()}"
+               th:value="${reason}"
+               th:text="${#strings.capitalize(reason.name().toLowerCase().replace('_', ' '))}">
+    </option>
+    </select>
+    <p class="text-warning" th:if="${#fields.hasErrors('reportReason')}" th:errors="*{reportReason}"></p>
+
+    <button class="add-album-btn" type="submit">Send Report</button>
+  </form>
+</div>
+
+</body>
+</html>

@@ -60,8 +60,15 @@
             <h4 class="label">All Reviews</h4>
             <ul>
                 <li th:each="review : ${reviews}">
-                    <p class="label"><span th:text="${review.user.username}">User Name</span>
-                    <span th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy HH:mm')}">Date</span></p>
+                    <div class="review-header">
+                        <p class="label">
+                            <span th:text="${review.user.username}">User Name</span> •
+                            <span th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy HH:mm')}">Date</span>
+                        </p>
+                        <form th:action="@{'/reviews/' + ${review.id} + '/report'}" method="GET">
+                            <button type="submit" class="report-btn">Report</button>
+                        </form>
+                    </div>
                     <p th:text="${review.comment}">Review content</p>
                 </li>
             </ul>

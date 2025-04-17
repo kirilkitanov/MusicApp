@@ -2,15 +2,18 @@ package app.review.service;
 
 import app.album.model.Album;
 import app.album.service.AlbumService;
+import app.review.model.ReportReason;
 import app.review.model.Review;
 import app.review.repository.ReviewRepository;
 import app.user.model.User;
 import app.web.dto.NewReviewRequest;
+import app.web.dto.ReportRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -43,6 +46,18 @@ public class ReviewService {
     }
 
     public List<Review> getReviewsByAlbum(Album album) {
-        return reviewRepository.findByAlbum(album);
+        return reviewRepository.findByAlbumOrderByCreatedOnDesc(album);
+    }
+
+    public Review getById(UUID id) {
+        return reviewRepository.findById(id).orElseThrow();
+    }
+
+    public void reportReview(UUID reviewId, ReportRequest reportRequest) {
+
+        Review review = getById(reviewId);
+        review.setReported(true);
+        review.setReportReason(reportRequest.getReportReason());
+        reviewRepository.save(review);
     }
 }
