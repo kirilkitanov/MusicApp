@@ -25,7 +25,7 @@
         <a class="nav-btn-active" th:href="@{/albums/new}" th:if="${user}">Add Album</a>
         <a class="nav-btn" th:href="@{/albums/added}">Uploaded Albums</a>
         <a class="nav-btn" th:href="@{/albums/favourites}">Favourite Albums</a>
-        <a class="nav-btn" href="/my-reviews">My Reviews</a>
+        <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a class="nav-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
         <a class="nav-btn" href="/users">Users</a>
     </div>

@@ -200,3 +200,9 @@ body, html {
     color: red !important;
 }
 
+.review-comment-cell {
+    max-width: 600px;
+    white-space: normal;
+    word-break: break-word;
+}
+

@@ -22,9 +22,9 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn-active">Uploaded Albums</a>
+        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
         <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
-        <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
+        <a th:href="@{/reviews/my-reviews}" class="nav-btn-active">My Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
     </div>
@@ -40,40 +40,29 @@
             <th>Cover</th>
             <th>Artist</th>
             <th>Album</th>
-            <th>Genre </th>
-            <th>Release Date</th>
-            <th>Status</th>
-            <th>Change Status</th>
-            <th>Edit Album</th>
+            <th>Review</th>
+            <th>Date</th>
+            <th>Delete Review</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="album : ${uploadedAlbums}">
+        <tr th:each="review : ${reviews}" >
             <td>
-                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
+                <img th:src="${review.album.albumCover != null && review.album.albumCover != '' ? review.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
             </td>
-            <td th:text="${album.artistName}">Artist Name</td>
-            <td> <a th:text="${album.albumName}" th:href="@{'/albums/' + ${album.id} + '/view'}">Album Name</a></td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
-            <td th:text="${album.releaseDate}">Release Date</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}"
-                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-success' : 'text-danger'}">Status</td>
+            <td th:text="${review.album.artistName}">Artist Name</td>
+            <td th:text="${review.album.albumName}">Album Name</td>
+            <td class="review-comment-cell" th:text="${review.comment}">Review</td>
+            <td th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy')}">Date</td>
+
             <td>
-                <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
-                    <button type="submit" class="status-toggle-btn"
-                            th:text="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'Hide' : 'Show'}">
-                    </button>
-                </form>
-            </td>
-            <td>
-                <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
-                    <button type="submit" class="status-toggle-btn">Edit</button>
+                <form th:method="DELETE" th:action="@{'/reviews/' + ${review.id} + '/delete'}">
+                    <button type="submit" class="status-toggle-btn">Delete</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 </body>
 </html>

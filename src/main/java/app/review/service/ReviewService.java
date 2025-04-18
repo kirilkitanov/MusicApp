@@ -2,7 +2,6 @@ package app.review.service;
 
 import app.album.model.Album;
 import app.album.service.AlbumService;
-import app.review.model.ReportReason;
 import app.review.model.Review;
 import app.review.repository.ReviewRepository;
 import app.user.model.User;
@@ -42,7 +41,7 @@ public class ReviewService {
                 .album(album)
                 .build();
 
-                reviewRepository.save(review);
+        reviewRepository.save(review);
     }
 
     public List<Review> getReviewsByAlbum(Album album) {
@@ -60,4 +59,16 @@ public class ReviewService {
         review.setReportReason(reportRequest.getReportReason());
         reviewRepository.save(review);
     }
+
+    public List<Review> getReviewsByUser(User user) {
+        return reviewRepository.findAllByUserOrderByCreatedOnDesc(user);
+    }
+
+    public void deleteReviewById(UUID reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found with id [%s]".formatted(reviewId)));
+
+        reviewRepository.delete(review);
+    }
+
 }

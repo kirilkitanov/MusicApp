@@ -57,7 +57,7 @@ public class ReviewController {
         }
 
         reviewService.addNewReview(newReviewRequest, user);
-        return new ModelAndView ("redirect:/albums/" + newReviewRequest.getAlbumId() + "/view");
+        return new ModelAndView("redirect:/albums/" + newReviewRequest.getAlbumId() + "/view");
     }
 
     @GetMapping("/{id}/report")
@@ -76,7 +76,7 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}/report")
-    public ModelAndView reportReview(@PathVariable UUID id,@Valid ReportRequest reportRequest, BindingResult bindingResult,
+    public ModelAndView reportReview(@PathVariable UUID id, @Valid ReportRequest reportRequest, BindingResult bindingResult,
                                      @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());
@@ -96,5 +96,28 @@ public class ReviewController {
 
         return new ModelAndView("redirect:/albums/" + album.getId() + "/view");
     }
+
+    @GetMapping("/my-reviews")
+    public ModelAndView getMyReviews(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        User user = userService.getById(authenticationDetails.getUserId());
+        List<Review> myReviews = reviewService.getReviewsByUser(user);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("my-reviews");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("reviews", myReviews);
+
+        return modelAndView;
+    }
+
+    @DeleteMapping("/{reviewId}/delete")
+    public String deleteReview(@PathVariable UUID reviewId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        reviewService.deleteReviewById(reviewId);
+
+        return "redirect:/reviews/my-reviews";
+    }
+
 
 }
