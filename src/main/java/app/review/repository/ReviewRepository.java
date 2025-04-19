@@ -13,4 +13,5 @@ public interface ReviewRepository  extends JpaRepository<Review, UUID> {
 
     List<Review> findAllByUserOrderByCreatedOnDesc(User user);
 
+    List<Review> findAllByReportedTrueOrderByCreatedOnDesc();
 }

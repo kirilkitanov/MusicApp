@@ -98,7 +98,7 @@ public class ReviewController {
     }
 
     @GetMapping("/my-reviews")
-    public ModelAndView getMyReviews(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    public ModelAndView getMyReviewsPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());
         List<Review> myReviews = reviewService.getReviewsByUser(user);
@@ -117,6 +117,37 @@ public class ReviewController {
         reviewService.deleteReviewById(reviewId);
 
         return "redirect:/reviews/my-reviews";
+    }
+
+    @GetMapping("/reported")
+    public ModelAndView getReportedReviewPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        User user = userService.getById(authenticationDetails.getUserId());
+        List<Review> reportedReviews = reviewService.getAllReportedReviews();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reported-reviews");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("reportedReviews", reportedReviews);
+
+        return modelAndView;
+
+    }
+
+    @PutMapping("/{id}/restore-reported")
+    public String RestoreReportedReview(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        reviewService.restoreReportedReview(id);
+
+        return "redirect:/reviews/reported";
+    }
+
+    @DeleteMapping("/{reviewId}/delete-reported")
+    public String deleteReportedReview(@PathVariable UUID reviewId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        reviewService.deleteReviewById(reviewId);
+
+        return "redirect:/reviews/reported";
     }
 
 

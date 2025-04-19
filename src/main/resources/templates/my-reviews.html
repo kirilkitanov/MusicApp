@@ -25,6 +25,7 @@
         <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
         <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn-active">My Reviews</a>
+        <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
     </div>
@@ -53,6 +54,7 @@
             <td th:text="${review.album.artistName}">Artist Name</td>
             <td th:text="${review.album.albumName}">Album Name</td>
             <td class="review-comment-cell" th:text="${review.comment}">Review</td>
+<!--            <td> <textarea readonly th:text="${review.comment}" type="text"></textarea></td>-->
             <td th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy')}">Date</td>
 
             <td>

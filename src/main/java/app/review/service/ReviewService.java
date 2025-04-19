@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -69,6 +70,27 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("Review not found with id [%s]".formatted(reviewId)));
 
         reviewRepository.delete(review);
+    }
+
+    public List<Review> getAllReportedReviews() {
+        return reviewRepository.findAllByReportedTrueOrderByCreatedOnDesc();
+    }
+
+    public void restoreReportedReview(UUID reviewId) {
+
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+
+        if (optionalReview.isEmpty()) {
+            throw new RuntimeException("Review not found with id [%s]".formatted(reviewId));
+        }
+
+        Review review = optionalReview.get();
+
+        if (review.isReported()) {
+            review.setReported(false);
+
+            reviewRepository.save(review);
+        }
     }
 
 }

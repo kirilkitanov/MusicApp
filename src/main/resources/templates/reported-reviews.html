@@ -22,10 +22,10 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn-active">Uploaded Albums</a>
+        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
         <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
-        <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
+        <a th:href="@{/reviews/reported}" class="nav-btn-active">Reported Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
         <a href="/users" class="nav-btn">Users</a>
     </div>
@@ -41,40 +41,38 @@
             <th>Cover</th>
             <th>Artist</th>
             <th>Album</th>
-            <th>Genre </th>
-            <th>Release Date</th>
-            <th>Status</th>
-            <th>Change Status</th>
-            <th>Edit Album</th>
+            <th>Review</th>
+            <th>Reason</th>
+            <th>Restore Review</th>
+            <th>Delete Review</th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="album : ${uploadedAlbums}">
+        <tr th:each="reportedReview : ${reportedReviews}" >
             <td>
-                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
+                <img th:src="${reportedReview.album.albumCover != null && reportedReview.album.albumCover != '' ? reportedReview.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
             </td>
-            <td th:text="${album.artistName}">Artist Name</td>
-            <td> <a th:text="${album.albumName}" th:href="@{'/albums/' + ${album.id} + '/view'}">Album Name</a></td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
-            <td th:text="${album.releaseDate}">Release Date</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}"
-                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-success' : 'text-danger'}">Status</td>
+            <td th:text="${reportedReview.album.artistName}">Artist Name</td>
+            <td th:text="${reportedReview.album.albumName}">Album Name</td>
+            <td class="review-comment-cell" th:text="${reportedReview.comment}">Review</td>
+            <td th:text="${#strings.capitalize(reportedReview.reportReason.name().toLowerCase().replace('_', ' '))}">Reason</td>
+
             <td>
-                <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
-                    <button type="submit" class="status-toggle-btn"
-                            th:text="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'Hide' : 'Show'}">
-                    </button>
+                <form th:method="PUT" th:action="@{'/reviews/' + ${reportedReview.id} + '/restore-reported'}">
+                    <button type="submit" class="status-toggle-btn">Restore</button>
                 </form>
             </td>
+
+
             <td>
-                <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
-                    <button type="submit" class="status-toggle-btn">Edit</button>
+                <form th:method="DELETE" th:action="@{'/reviews/' + ${reportedReview.id} + '/delete-reported'}">
+                    <button type="submit" class="status-toggle-btn">Delete</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
