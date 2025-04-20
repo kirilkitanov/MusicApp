@@ -49,6 +49,8 @@ public class User {
     @Column
     private String lastName;
 
+    @Column(nullable = false)
+    private boolean isActive;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     @OrderBy("createdOn DESC")

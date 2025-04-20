@@ -22,12 +22,12 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn-active">Uploaded Albums</a>
+        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
         <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
-        <a th:href="@{/users}" class="nav-btn">Users</a>
+        <a th:href="@{/users}" class="nav-btn-active">Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
 </div>
@@ -38,39 +38,54 @@
     <table class="album-table">
         <thead>
         <tr>
-            <th>Cover</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Genre </th>
-            <th>Release Date</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email </th>
+            <th>Registered On</th>
+            <th>Last Modified</th>
+            <th>Role</th>
+            <th>Change Role</th>
             <th>Status</th>
             <th>Change Status</th>
-            <th>Edit Album</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="album : ${uploadedAlbums}">
+        <tr th:each="user : ${users}">
+
+            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.firstName}">First Name</td>
+            <td th:text="${user.lastName}">Last Name</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${#temporals.format(user.createdOn, 'dd MMM yyyy')}">Registered On</td>
+            <td th:text="${#temporals.format(user.updatedOn, 'dd MMM yyyy')}">Last Modified</td>
+            <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role))}">Role</td>
+
             <td>
-                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
+                <form th:method="PUT" th:action="@{'/users/' + ${user.id} + '/role'}">
+                    <select name="role" class="select-role">
+                        <option th:each="role : ${T(app.user.model.UserRole).values()}"
+                                th:value="${role}"
+                                th:text="${#strings.capitalize(#strings.toLowerCase(role.name()))}"
+                                th:selected="${role == user.role}">
+                        </option>
+                    </select>
+                    <button type="submit" class="status-toggle-btn">Change</button>
+                </form>
             </td>
-            <td th:text="${album.artistName}">Artist Name</td>
-            <td> <a th:text="${album.albumName}" th:href="@{'/albums/' + ${album.id} + '/view'}">Album Name</a></td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
-            <td th:text="${album.releaseDate}">Release Date</td>
-            <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}"
-                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-active' : 'text-inactive'}">Status</td>
+
+            <td th:text="${user.isActive ? 'Active' : 'Inactive'}"
+                th:classappend="${user.isActive ? 'text-active' : 'text-inactive'}">
+            </td>
+
             <td>
-                <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
+                <form th:method="PUT" th:action="@{'/users/' + ${user.id} + '/status'}">
                     <button type="submit" class="status-toggle-btn"
-                            th:text="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'Hide' : 'Show'}">
+                            th:text="${user.isActive ? 'Deactivate' : 'Activate'}">
                     </button>
                 </form>
             </td>
-            <td>
-                <form th:method="GET" th:action="@{'/albums/' + ${album.id} + '/edit'}">
-                    <button type="submit" class="status-toggle-btn">Edit</button>
-                </form>
-            </td>
+
         </tr>
         </tbody>
     </table>

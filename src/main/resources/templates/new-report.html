@@ -28,7 +28,7 @@
     <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
     <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
     <a class="nav-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
-    <a class="nav-btn" href="/users">Users</a>
+    <a th:href="@{/users}" class="nav-btn">Users</a>
   </div>
   <a class="nav-btn logout-btn" href="/logout">Logout</a>
 </div>

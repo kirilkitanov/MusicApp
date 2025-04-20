@@ -1,19 +1,20 @@
 package app.web;
 
+import app.security.AuthenticationDetails;
 import app.user.model.User;
+import app.user.model.UserRole;
 import app.user.service.UserService;
 import app.web.dto.EditProfileRequest;
 import app.web.mapper.DtoMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -55,6 +56,36 @@ public class UserController {
         userService.editProfileRequest (id, editProfileRequest);
 
         return new ModelAndView("redirect:/home");
+    }
+
+    @GetMapping
+    public ModelAndView getAllUsersPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+
+        User user = userService.getById(authenticationDetails.getUserId());
+        List<User> users = userService.getAllUsers();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("user", user);
+
+        return modelAndView;
+    }
+
+    @PutMapping("/{id}/role")
+    public String changeUserRole(@PathVariable UUID id,  @RequestParam("role") UserRole userRole) {
+
+        userService.changeRole(id, userRole);
+
+        return "redirect:/users";
+    }
+
+    @PutMapping("/{id}/status")
+    public String changeUserStatus(@PathVariable UUID id) {
+
+        userService.changeStatus(id);
+
+        return "redirect:/users";
     }
 
 

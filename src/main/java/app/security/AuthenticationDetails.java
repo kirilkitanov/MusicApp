@@ -21,6 +21,7 @@ public class AuthenticationDetails implements UserDetails {
     private String username;
     private String password;
     private UserRole role;
+    private boolean isActive;
 
 
     @Override
@@ -33,14 +34,31 @@ public class AuthenticationDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-
         return this.password;
     }
 
     @Override
     public String getUsername() {
-
         return this.username;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isActive;
+    }
 }

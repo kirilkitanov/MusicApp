@@ -27,7 +27,7 @@
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
-        <a href="/users" class="nav-btn">Users</a>
+        <a th:href="@{/users}" class="nav-btn">Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
 </div>
@@ -58,7 +58,7 @@
             <td th:text="${#strings.capitalize(#strings.toLowerCase(album.genre))}">Genre</td>
             <td th:text="${album.releaseDate}">Release Date</td>
             <td th:text="${#strings.capitalize(#strings.toLowerCase(album.albumStatus))}"
-                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-success' : 'text-danger'}">Status</td>
+                th:classappend="${album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE ? 'text-active' : 'text-inactive'}">Status</td>
             <td>
                 <form th:method="PUT" th:action="@{'/albums/' + ${album.id} + '/status'}">
                     <button type="submit" class="status-toggle-btn"

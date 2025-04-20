@@ -192,11 +192,11 @@ body, html {
     outline: none;
 }
 
-.text-success {
+.text-active {
     color: lawngreen !important;
 }
 
-.text-danger {
+.text-inactive {
     color: red !important;
 }
 
@@ -204,5 +204,14 @@ body, html {
     max-width: 600px;
     white-space: normal;
     word-break: break-word;
+}
+
+.select-role {
+    background-color: #080838;
+    color: white;
+    border: none;
+    padding: 2px 2px;
+    font-size: 1rem;
+    margin-right: 10px
 }
 
