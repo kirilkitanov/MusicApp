@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow: hidden;
     font-family: 'Arial', sans-serif;
 }
 
@@ -9,7 +10,6 @@ body, html {
     display: flex;
     min-height: 100vh;
     width: 100%;
-    overflow: hidden;
 }
 
 .home-page {
@@ -30,7 +30,7 @@ body, html {
 }
 
 .left-side {
-    width: 200px;
+    width: 205px;
     background-color: #080838;
     color: white;
     padding: 20px;
@@ -97,6 +97,7 @@ body, html {
     flex-direction: column;
     justify-content: flex-start;
     color: white;
+    height: 100vh;
 }
 
 .album-info {
