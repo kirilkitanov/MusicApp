@@ -22,13 +22,13 @@
     <!-- Бутоните под информацията -->
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
-        <a th:if="${user}" th:href="@{/albums/new}" class="nav-btn">Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn">Uploaded Albums</a>
+        <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
+        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
         <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
-        <a th:href="@{/reviews/reported}" class="nav-btn">Reported Reviews</a>
+        <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
         <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn-active">Edit Profile</a>
-        <a th:href="@{/users}" class="nav-btn">Users</a>
+        <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
 </div>
@@ -42,7 +42,7 @@
           th:method="PUT"
           th:object="${editProfileRequest}">
 
-        <h2>Edit Profile</h2>
+        <h2>Profile</h2>
 
         <p><strong>Name: </strong><span th:if="${user.firstName != null or user.lastName != null}"
                                         th:text="${(user.firstName != null ? user.firstName : '') + (user.lastName != null ? ' ' + user.lastName : '')}"></span>
