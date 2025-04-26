@@ -88,9 +88,15 @@ public class ReviewService {
 
         if (review.isReported()) {
             review.setReported(false);
+            review.setReportReason(null);
 
             reviewRepository.save(review);
         }
+    }
+
+    public void deleteAllReportedReviews() {
+        List<Review> reportedReviews = getAllReportedReviews();
+        reviewRepository.deleteAll(reportedReviews);
     }
 
 }

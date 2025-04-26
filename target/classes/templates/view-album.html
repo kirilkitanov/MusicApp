@@ -67,7 +67,10 @@
                             <span th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy HH:mm')}">Date</span>
                         </p>
                         <form th:action="@{'/reviews/' + ${review.id} + '/report'}" method="GET">
-                            <button type="submit" class="report-btn">Report</button>
+                            <button type="submit"
+                            th:classappend="${review.reported} ? 'reported-btn' : 'report-btn'"
+                            th:text="${review.reported} ? 'Reported' : 'Report'"
+                            th:disabled="${review.reported}">Report</button>
                         </form>
                     </div>
                     <p th:text="${review.comment}">Review content</p>

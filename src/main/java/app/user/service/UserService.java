@@ -71,7 +71,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     public void editProfileRequest(UUID userId, EditProfileRequest editProfileRequest) {
 
         User user = getById(userId);
@@ -88,14 +87,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     public void changeRole(UUID userId, UserRole userRole) {
 
         User user = getById(userId);
         user.setRole(userRole);
         userRepository.save(user);
     }
-    @CacheEvict(value = "users", allEntries = true)
+
     public void changeStatus(UUID userId) {
 
         User user = getById(userId);

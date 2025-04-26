@@ -41,6 +41,7 @@
             <th>Cover</th>
             <th>Artist</th>
             <th>Album</th>
+            <th>Reviewer</th>
             <th>Review</th>
             <th>Reason</th>
             <th>Restore Review</th>
@@ -54,7 +55,8 @@
                 <img th:src="${reportedReview.album.albumCover != null && reportedReview.album.albumCover != '' ? reportedReview.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
             </td>
             <td th:text="${reportedReview.album.artistName}">Artist Name</td>
-            <td th:text="${reportedReview.album.albumName}">Album Name</td>
+            <td> <a th:text="${reportedReview.album.albumName}" th:href="@{'/albums/' + ${reportedReview.album.id} + '/view'}">Album Name</a></td>
+            <td th:text="${reportedReview.user.getUsername()}">Reviewer</td>
             <td class="review-comment-cell" th:text="${reportedReview.comment}">Review</td>
             <td th:text="${#strings.capitalize(reportedReview.reportReason.name().toLowerCase().replace('_', ' '))}">Reason</td>
 
