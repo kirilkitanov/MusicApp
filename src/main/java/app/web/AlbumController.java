@@ -13,6 +13,7 @@ import app.web.dto.NewReviewRequest;
 import app.web.mapper.DtoMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,7 @@ public class AlbumController {
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ARTIST')")
     public ModelAndView getNewAlbumPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());
@@ -71,6 +73,7 @@ public class AlbumController {
     }
 
     @GetMapping("/added")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ARTIST')")
     public ModelAndView getMyUploadedAlbums(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());
@@ -86,7 +89,7 @@ public class AlbumController {
     }
 
     @PutMapping("/{id}/status")
-    public String changeAlbumStatus(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    public String changeAlbumStatus(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) throws AccessDeniedException {
 
         albumService.changeAlbumStatus(id, authenticationDetails.getUserId());
 
@@ -115,7 +118,7 @@ public class AlbumController {
 
         if (bindingResult.hasErrors()) {
             User user = userService.getById(authenticationDetails.getUserId());
-            Album album = albumService.findAndCheckAlbumOwnership(id, authenticationDetails.getUserId());
+//            Album album = albumService.findAndCheckAlbumOwnership(id, authenticationDetails.getUserId());
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("edit-album");
             modelAndView.addObject("user", user);
@@ -148,7 +151,5 @@ public class AlbumController {
 
         return modelAndView;
     }
-
-
 
 }

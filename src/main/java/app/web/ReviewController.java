@@ -11,6 +11,7 @@ import app.web.dto.NewReviewRequest;
 import app.web.dto.ReportRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -120,6 +121,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reported")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView getReportedReviewPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());

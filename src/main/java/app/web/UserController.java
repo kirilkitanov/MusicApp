@@ -8,6 +8,7 @@ import app.web.dto.EditProfileRequest;
 import app.web.mapper.DtoMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,9 @@ public class UserController {
         return new ModelAndView("redirect:/home");
     }
 
+
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView getAllUsersPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());

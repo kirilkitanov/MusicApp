@@ -14,6 +14,6 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     Optional<Album> findByIdAndUserId(UUID albumId, UUID userId);
 
-    List<Album> OrderByCreatedOnDesc();
+    List<Album> findAllByOrderByCreatedOnDesc();
 
 }
