@@ -22,11 +22,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn-active">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
         <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -38,7 +38,7 @@
     <div class="album-info">
         <div class="album-details">
             <div class="album-image">
-                <img th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" alt="Album Cover">
+                <img src="" th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" alt="Album Cover">
             </div>
             <div class="album-text">
                 <h2><span class="label">Album:</span> <span th:text="${album.albumName}"></span></h2>
@@ -48,9 +48,9 @@
                    <span th:text="${album.description}" class="album-description"></span></p>
             </div>
         </div>
-        <form class="new-review-form" th:action="@{/reviews/new}" method="POST" th:object="${newReviewRequest}">
+        <form class="new-review-form" th:action="@{/reviews}" method="POST" th:object="${newReviewRequest}">
             <input type="hidden" th:field="*{albumId}"/>
-            <textarea placeholder="Add a review" th:field="*{comment}" ></textarea>
+            <label class="new-review-form"><textarea placeholder="Add a review" th:field="*{comment}" ></textarea></label>
             <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="text-warning"></p>
             <button type="submit" class="add-comment-btn">Add Review</button>
         </form>

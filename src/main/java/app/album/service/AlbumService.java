@@ -29,7 +29,6 @@ public class AlbumService {
         this.userService = userService;
     }
 
-
     public void addNewAlbum(NewAlbumRequest newAlbumRequest, User user) {
 
         Album album = Album.builder()

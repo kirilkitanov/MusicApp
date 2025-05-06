@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/albums/favourites")
+@RequestMapping("/favourites")
 public class FavouriteAlbumController {
 
     private final FavouriteAlbumService favouriteAlbumService;
@@ -57,30 +57,15 @@ public class FavouriteAlbumController {
     }
 
     @DeleteMapping("/{albumId}")
-    public String deleteFavouriteAlbum(@PathVariable UUID albumId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails){
+    public String deleteFavouriteAlbum(@PathVariable UUID albumId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
+            @RequestParam(name = "redirect", defaultValue = "/favourites") String redirect) {
 
         User user = userService.getById(authenticationDetails.getUserId());
         Album album = albumService.getById(albumId);
 
         favouriteAlbumService.deleteFavourites(user, album);
 
-        return "redirect:/albums/favourites";
-
+        return "redirect:" + redirect;
     }
-
-    @DeleteMapping("/{albumId}/home")
-    public String deleteFavouriteAlbumAndRedirectHome(@PathVariable UUID albumId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails){
-
-        User user = userService.getById(authenticationDetails.getUserId());
-        Album album = albumService.getById(albumId);
-
-        favouriteAlbumService.deleteFavourites(user, album);
-
-        return "redirect:/home";
-
-    }
-
-
-
 
 }

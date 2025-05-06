@@ -22,11 +22,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn-active">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn-active">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
         <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -50,7 +50,7 @@
         <tbody>
         <tr th:each="album : ${favorites}" th:if="${album.album.albumStatus == T(app.album.model.AlbumStatus).VISIBLE}">
             <td>
-                <img th:src="${album.album.albumCover != null && album.album.albumCover != '' ? album.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
+                <img src="" th:src="${album.album.albumCover != null && album.album.albumCover != '' ? album.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px" alt="">
             </td>
             <td th:text="${album.album.artistName}">Artist Name</td>
             <td th:text="${album.album.albumName}">Album Name</td>
@@ -64,7 +64,7 @@
             </td>
 
             <td>
-                <form th:method="DELETE" th:action="@{'/albums/favourites/' + ${album.album.id}}">
+                <form th:method="DELETE" th:action="@{'/favourites/' + ${album.album.id} + '?redirect=/favourites'}">
                     <button type="submit" class="status-toggle-btn">Remove</button>
                 </form>
             </td>

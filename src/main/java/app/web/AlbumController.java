@@ -72,7 +72,7 @@ public class AlbumController {
         return new ModelAndView("redirect:/home");
     }
 
-    @GetMapping("/added")
+    @GetMapping("/personal")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'ARTIST')")
     public ModelAndView getMyUploadedAlbums(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
@@ -93,10 +93,10 @@ public class AlbumController {
 
         albumService.changeAlbumStatus(id, authenticationDetails.getUserId());
 
-        return "redirect:/albums/added";
+        return "redirect:/albums/personal";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{id}/form")
     public ModelAndView getEditAlbumPage(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) throws AccessDeniedException {
 
         User user = userService.getById(authenticationDetails.getUserId());
@@ -113,12 +113,11 @@ public class AlbumController {
         return modelAndView;
     }
 
-    @PutMapping("/{id}/edit")
+    @PutMapping("/{id}/form")
     public ModelAndView updateEditAlbumPage (@PathVariable UUID id, @Valid EditAlbumRequest editAlbumRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) throws AccessDeniedException {
 
         if (bindingResult.hasErrors()) {
             User user = userService.getById(authenticationDetails.getUserId());
-//            Album album = albumService.findAndCheckAlbumOwnership(id, authenticationDetails.getUserId());
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("edit-album");
             modelAndView.addObject("user", user);
@@ -129,7 +128,7 @@ public class AlbumController {
         User user = userService.getById(authenticationDetails.getUserId());
         albumService.updateAlbum(id, editAlbumRequest, user);
 
-        return new ModelAndView("redirect:/albums/added");
+        return new ModelAndView("redirect:/albums/personal");
     }
 
     @GetMapping("/{id}/view")

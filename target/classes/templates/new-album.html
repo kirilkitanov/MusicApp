@@ -23,11 +23,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn-active" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
         <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a class="nav-btn logout-btn" href="/logout">Logout</a>
@@ -44,28 +44,28 @@
 
         <h2>Add Album</h2>
 
-        <input placeholder="Artist" th:field="*{artistName}" type="text">
+        <label><input placeholder="Artist" th:field="*{artistName}" type="text"></label>
         <p class="text-warning" th:errors="*{artistName}" th:if="${#fields.hasErrors('artistName')}"></p>
 
-        <input placeholder="Album" th:field="*{albumName}" type="text">
+        <label><input placeholder="Album" th:field="*{albumName}" type="text"></label>
         <p class="text-warning" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}"></p>
 
-        <input placeholder="Release Date" th:field="*{releaseDate}" type="text">
+        <label><input placeholder="Release Date" th:field="*{releaseDate}" type="text"></label>
         <p th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}" class="text-warning"></p>
 
-        <textarea placeholder="Description" th:field="*{description}" type="text"></textarea>
+        <label><textarea placeholder="Description" th:field="*{description}" ></textarea></label>
         <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-warning"></p>
 
-        <select class=".new-album-form select" id="genre" name="genre" th:field="*{genre}">
+        <label><select class=".new-album-form select" id="genre" name="genre" th:field="*{genre}">
             <option value="">Select Genre</option>
             <option th:each="genre : ${T(app.album.model.Genre).values()}"
                     th:text="${#strings.capitalize(#strings.toLowerCase(genre))}"
                     th:value="${genre}">Genre
             </option>
-        </select>
+        </select></label>
         <p class="text-warning" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
 
-        <input placeholder="Cover Url" th:field="*{albumCover}" type="url">
+        <label><input placeholder="Cover Url" th:field="*{albumCover}" type="url"></label>
 
         <button class="add-album-btn" type="submit">Add album</button>
     </form>

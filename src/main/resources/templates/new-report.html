@@ -23,11 +23,11 @@
   <div class="nav-bar">
     <a th:href="@{/home}" class="nav-btn-active">All Albums</a>
     <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-    <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-    <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+    <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+    <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
     <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
     <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-    <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+    <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
     <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
   </div>
   <a class="nav-btn logout-btn" href="/logout">Logout</a>
@@ -44,15 +44,15 @@
 
     <h2>Send Report</h2>
 
-    <textarea readonly placeholder="Review" th:text="${review.comment}" type="text"></textarea>
+    <label><textarea readonly placeholder="Review" th:text="${review.comment}"></textarea></label>
 
-    <select class=".new-album-form select" th:field="*{reportReason}">
+    <label><select class=".new-album-form select" th:field="*{reportReason}">
       <option value="">Select Reason</option>
       <option th:each="reason : ${T(app.review.model.ReportReason).values()}"
                th:value="${reason}"
                th:text="${#strings.capitalize(reason.name().toLowerCase().replace('_', ' '))}">
     </option>
-    </select>
+    </select></label>
     <p class="text-warning" th:if="${#fields.hasErrors('reportReason')}" th:errors="*{reportReason}"></p>
 
     <button class="add-album-btn" type="submit">Send Report</button>

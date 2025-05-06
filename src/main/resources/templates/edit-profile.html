@@ -23,11 +23,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn-active">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn-active">Profile</a>
         <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -52,13 +52,13 @@
                 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</span></p>
         <p><strong>User id: </strong> <span th:text="${user.id}"></span></p>
 
-        <input type="text" placeholder="First Name" th:field="*{firstName}">
+        <label><input type="text" placeholder="First Name" th:field="*{firstName}"></label>
         <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-warning"></p>
 
-        <input type="text" placeholder="Last Name" th:field="*{lastName}">
+        <label><input type="text" placeholder="Last Name" th:field="*{lastName}"></label>
         <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-warning"></p>
 
-        <input type="email" placeholder="Email" th:field="*{email}">
+        <label><input type="email" placeholder="Email" th:field="*{email}"></label>
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning"></p>
 
         <button type="submit" class="edit-profile-btn">Save Changes</button>

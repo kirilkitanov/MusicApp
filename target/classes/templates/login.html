@@ -17,9 +17,9 @@
 
     <form class="login-form" th:action="@{/login}" th:method="POST" th:object="${loginRequest}">
 
-        <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
+        <label><input type="text" placeholder="Username" id="username" th:field="*{username}" required></label>
 
-        <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
+        <label><input type="password" placeholder="Password" id="password" th:field="*{password}" required></label>
         <p class="text-warning" th:if="${errorMessage}" th:text="${errorMessage}" >Error Text Here</p>
 
         <button type="submit" class="login-btn">Log in</button>

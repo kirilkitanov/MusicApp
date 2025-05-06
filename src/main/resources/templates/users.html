@@ -22,11 +22,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
         <a th:href="@{/users}" class="nav-btn-active" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -63,13 +63,13 @@
 
             <td>
                 <form th:method="PUT" th:action="@{'/users/' + ${user.id} + '/role'}">
-                    <select name="role" class="select-role">
+                    <label><select name="role" class="select-role">
                         <option th:each="role : ${T(app.user.model.UserRole).values()}"
                                 th:value="${role}"
                                 th:text="${#strings.capitalize(#strings.toLowerCase(role.name()))}"
                                 th:selected="${role == user.role}">
                         </option>
-                    </select>
+                    </select></label>
                     <button type="submit" class="status-toggle-btn">Change</button>
                 </form>
             </td>

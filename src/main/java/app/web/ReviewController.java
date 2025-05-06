@@ -38,7 +38,7 @@ public class ReviewController {
         this.userService = userService;
     }
 
-    @PostMapping("/new")
+    @PostMapping()
     public ModelAndView addNewReview(@Valid NewReviewRequest newReviewRequest, BindingResult bindingResult,
                                      @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
@@ -46,7 +46,8 @@ public class ReviewController {
         Album album = albumService.getById(newReviewRequest.getAlbumId());
         List<Review> reviews = reviewService.getReviewsByAlbum(album);
 
-        ModelAndView modelAndView = new ModelAndView("view-album");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("view-album");
 
         modelAndView.addObject("user", user);
         modelAndView.addObject("album", album);
@@ -112,12 +113,13 @@ public class ReviewController {
         return modelAndView;
     }
 
-    @DeleteMapping("/{reviewId}/delete")
-    public String deleteReview(@PathVariable UUID reviewId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    @DeleteMapping("/{reviewId}")
+    public String deleteReview(@PathVariable UUID reviewId,
+                               @RequestParam(name = "redirect", defaultValue = "/reviews/my-reviews") String redirect) {
 
         reviewService.deleteReviewById(reviewId);
 
-        return "redirect:/reviews/my-reviews";
+        return "redirect:" + redirect;
     }
 
     @GetMapping("/reported")
@@ -137,20 +139,11 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}/restore-reported")
-    public String RestoreReportedReview(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    public String restoreReportedReview(@PathVariable UUID id) {
 
         reviewService.restoreReportedReview(id);
 
         return "redirect:/reviews/reported";
     }
-
-    @DeleteMapping("/{reviewId}/delete-reported")
-    public String deleteReportedReview(@PathVariable UUID reviewId, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-
-        reviewService.deleteReviewById(reviewId);
-
-        return "redirect:/reviews/reported";
-    }
-
 
 }

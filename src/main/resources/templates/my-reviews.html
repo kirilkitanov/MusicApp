@@ -22,11 +22,11 @@
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
-        <a th:href="@{/albums/added}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
-        <a th:href="@{/albums/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
         <a th:href="@{/reviews/my-reviews}" class="nav-btn-active">My Reviews</a>
         <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
-        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Edit Profile</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn">Profile</a>
         <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
     </div>
     <a href="/logout" class="nav-btn logout-btn">Logout</a>
@@ -49,16 +49,15 @@
         <tbody>
         <tr th:each="review : ${reviews}" >
             <td>
-                <img th:src="${review.album.albumCover != null && review.album.albumCover != '' ? review.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px">
+                <img src="" th:src="${review.album.albumCover != null && review.album.albumCover != '' ? review.album.albumCover : '/images/no-image-available.svg'}" width="35px" height="35px" alt="">
             </td>
             <td th:text="${review.album.artistName}">Artist Name</td>
             <td th:text="${review.album.albumName}">Album Name</td>
             <td class="review-comment-cell" th:text="${review.comment}">Review</td>
-<!--            <td> <textarea readonly th:text="${review.comment}" type="text"></textarea></td>-->
             <td th:text="${#temporals.format(review.createdOn, 'dd MMM yyyy')}">Date</td>
 
             <td>
-                <form th:method="DELETE" th:action="@{'/reviews/' + ${review.id} + '/delete'}">
+                <form th:method="DELETE" th:action="@{'/reviews/' + ${review.id} + '?redirect=/reviews/my-reviews'}">
                     <button type="submit" class="status-toggle-btn">Delete</button>
                 </form>
             </td>
