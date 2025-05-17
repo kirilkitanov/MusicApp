@@ -1,17 +1,26 @@
 package app.service;
 
+import app.exception.EmailPreferenceAlreadyExistsException;
+import app.exception.EmailPreferenceDisabledException;
+import app.exception.EmailPreferenceNotFoundException;
+import app.model.Email;
 import app.model.EmailPreference;
+import app.model.EmailStatus;
 import app.repository.EmailPreferenceRepository;
 import app.repository.EmailRepository;
-import app.web.dto.Preference;
+import app.web.dto.PreferenceRequest;
+import app.web.dto.SendEmailRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class EmailService {
 
@@ -27,18 +36,18 @@ public class EmailService {
     }
 
 
-    public EmailPreference createPreference(Preference preference) {
+    public EmailPreference createPreference(PreferenceRequest preferenceRequest) {
 
-        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preference.getUserId());
+        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preferenceRequest.getUserId());
 
         if (userEmailPreferenceOptional.isPresent()) {
-            throw new RuntimeException("Email preference for user [%s] already exists.".formatted(preference.getUserId()));
+            throw new EmailPreferenceAlreadyExistsException("Email preference for user [%s] already exists.".formatted(preferenceRequest.getUserId()));
         }
 
         EmailPreference emailPreference = EmailPreference.builder()
-                .userId(preference.getUserId())
-                .active(preference.isPreferenceActive())
-                .emailAddress(preference.getEmailAddress())
+                .userId(preferenceRequest.getUserId())
+                .active(preferenceRequest.isPreferenceActive())
+                .emailAddress(preferenceRequest.getEmailAddress())
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())
                 .build();
@@ -46,17 +55,17 @@ public class EmailService {
     }
 
 
-    public EmailPreference updatePreference(Preference preference) {
+    public EmailPreference updatePreference(PreferenceRequest preferenceRequest) {
 
-        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preference.getUserId());
+        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preferenceRequest.getUserId());
 
         if (userEmailPreferenceOptional.isEmpty()) {
-            throw new RuntimeException("Preference not found for user [%s].".formatted(preference.getUserId()));
+            throw new EmailPreferenceNotFoundException("Preference not found for user [%s].".formatted(preferenceRequest.getUserId()));
         }
 
         EmailPreference emailPreference = userEmailPreferenceOptional.get();
-        emailPreference.setActive(preference.isPreferenceActive());
-        emailPreference.setEmailAddress(preference.getEmailAddress());
+        emailPreference.setActive(preferenceRequest.isPreferenceActive());
+        emailPreference.setEmailAddress(preferenceRequest.getEmailAddress());
         emailPreference.setUpdatedOn(LocalDateTime.now());
 
         return emailPreferenceRepository.save(emailPreference);
@@ -67,6 +76,41 @@ public class EmailService {
 
         return emailPreferenceRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Preference not found for user [%s].".formatted(userId)));
+    }
+
+    public Email sendEmail(SendEmailRequest sendEmailRequest) {
+
+        UUID userId = sendEmailRequest.getUserId();
+        EmailPreference userPreference = getPreferenceByUserId(userId);
+
+        if (!userPreference.isActive()) {
+            throw new EmailPreferenceDisabledException("Email preference for user [%s] are disabled.".formatted(userId));
+        }
+
+        Email email = Email.builder().
+                userId(userId)
+                .subject(sendEmailRequest.getSubject())
+                .body(sendEmailRequest.getBody())
+                .createdOn(LocalDateTime.now())
+                .build();
+
+        try {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userPreference.getEmailAddress());
+        message.setSubject(sendEmailRequest.getSubject());
+        message.setText(sendEmailRequest.getBody());
+
+        mailSender.send(message);
+
+        email.setStatus(EmailStatus.SUCCEEDED);
+            log.info("Successfully sent email to {}", userPreference.getEmailAddress());
+
+        } catch (Exception e) {
+            email.setStatus(EmailStatus.FAILED);
+            log.warn("Failed to send email to {}", userPreference.getEmailAddress());
+        }
+
+        return emailRepository.save(email);
     }
 }
 

@@ -1,7 +1,10 @@
 package app.web.mapper;
 
+import app.model.Email;
 import app.model.EmailPreference;
+import app.model.EmailStatus;
 import app.web.dto.EmailPreferenceResponse;
+import app.web.dto.EmailResponse;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -18,4 +21,10 @@ public class DtoMapper {
     }
 
 
+    public static EmailResponse fromEmail(Email email) {
+
+        return EmailResponse.builder()
+                .status(email.getStatus())
+                .build();
+    }
 }

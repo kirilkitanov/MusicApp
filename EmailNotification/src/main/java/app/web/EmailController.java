@@ -1,9 +1,12 @@
 package app.web;
 
+import app.model.Email;
 import app.model.EmailPreference;
 import app.service.EmailService;
-import app.web.dto.Preference;
+import app.web.dto.EmailResponse;
+import app.web.dto.PreferenceRequest;
 import app.web.dto.EmailPreferenceResponse;
+import app.web.dto.SendEmailRequest;
 import app.web.mapper.DtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/email")
+@RequestMapping("/api/v1/emails")
 public class EmailController {
 
     private final EmailService emailService;
@@ -24,9 +27,9 @@ public class EmailController {
     }
 
     @PostMapping("/preferences")
-    public ResponseEntity<EmailPreferenceResponse> createPreference(@RequestBody Preference preference){
+    public ResponseEntity<EmailPreferenceResponse> createPreference(@RequestBody PreferenceRequest preferenceRequest){
 
-       EmailPreference emailPreference = emailService.createPreference(preference);
+       EmailPreference emailPreference = emailService.createPreference(preferenceRequest);
 
         EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
 
@@ -36,9 +39,9 @@ public class EmailController {
     }
 
     @PutMapping("/preferences")
-    public ResponseEntity<EmailPreferenceResponse> updatePreference(@RequestBody Preference preference) {
+    public ResponseEntity<EmailPreferenceResponse> updatePreference(@RequestBody PreferenceRequest preferenceRequest) {
 
-        EmailPreference emailPreference = emailService.updatePreference(preference);
+        EmailPreference emailPreference = emailService.updatePreference(preferenceRequest);
 
         EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
 
@@ -57,6 +60,18 @@ public class EmailController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(emailPreferenceResponse);
+    }
+
+    @PostMapping()
+    public ResponseEntity<EmailResponse> sendEmail(@RequestBody SendEmailRequest sendEmailRequest){
+
+        Email email = emailService.sendEmail(sendEmailRequest);
+
+        EmailResponse emailResponse = DtoMapper.fromEmail(email);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(emailResponse);
     }
 
 }
