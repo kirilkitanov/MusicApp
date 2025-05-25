@@ -26,7 +26,7 @@ public class EditAlbumRequest {
     public String albumName;
 
     @NotBlank(message = "Artist cannot be blank")
-    @Size(max = 20, message = "Artist's name cannot have more than 40 symbols")
+    @Size(max = 40, message = "Artist's name cannot have more than 40 symbols")
     private String artistName;
 
     @NotNull(message = "Please select genre")

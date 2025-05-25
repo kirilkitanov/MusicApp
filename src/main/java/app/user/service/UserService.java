@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.notification.service.EmailService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.model.UserRole;
@@ -24,11 +25,14 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailService emailService;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     public void register(RegisterRequest registerRequest) {
@@ -54,6 +58,8 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
+
+        emailService.savePreference(user.getId(), true, user.getEmail());
 
     }
 

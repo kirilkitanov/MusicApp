@@ -52,6 +52,11 @@
                 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</span></p>
         <p><strong>User id: </strong> <span th:text="${user.id}"></span></p>
 
+        <p><strong>Notification status: </strong>
+            <span th:text="${emailPreference.active ? 'Active' : 'Inactive'}"
+                  th:classappend="${emailPreference.active ? 'text-active' : 'text-inactive'}">
+    </span></p>
+
         <label><input type="text" placeholder="First Name" th:field="*{firstName}"></label>
         <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-warning"></p>
 
@@ -62,7 +67,15 @@
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning"></p>
 
         <button type="submit" class="edit-profile-btn">Save Changes</button>
+
+        <button type="submit" class="edit-profile-btn"
+                formaction=""
+                formmethod=""
+                text="${notificationsEnabled ? 'Disable Notifications' : 'Enable Notifications'}"> Notification
+        </button>
+
     </form>
+
 </div>
 
 </body>

@@ -71,12 +71,30 @@ public class EmailService {
         return emailPreferenceRepository.save(emailPreference);
     }
 
+//    public EmailPreference getPreferenceByUserId(UUID userId) {
+//
+//        return emailPreferenceRepository.findByUserId(userId)
+//                .orElseThrow(() -> new RuntimeException("Preference not found for user [%s].".formatted(userId)));
+//    }
 
     public EmailPreference getPreferenceByUserId(UUID userId) {
+        Optional<EmailPreference> existingPreference = emailPreferenceRepository.findByUserId(userId);
 
-        return emailPreferenceRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Preference not found for user [%s].".formatted(userId)));
+        if (existingPreference.isPresent()) {
+            return existingPreference.get();
+        }
+
+        EmailPreference defaultPreference = EmailPreference.builder()
+                .userId(userId)
+                .active(false)
+                .emailAddress("")
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        return emailPreferenceRepository.save(defaultPreference);
     }
+
 
     public Email sendEmail(SendEmailRequest sendEmailRequest) {
 

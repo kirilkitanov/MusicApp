@@ -14,8 +14,8 @@ public class PreferenceRequest {
 
     private boolean preferenceActive;
 
-    @NotNull
     @NotBlank
+    @NotNull
     private String emailAddress;
 
 }

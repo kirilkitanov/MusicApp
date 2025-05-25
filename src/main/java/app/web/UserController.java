@@ -1,5 +1,7 @@
 package app.web;
 
+import app.notification.client.dto.EmailPreference;
+import app.notification.service.EmailService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.model.UserRole;
@@ -23,10 +25,12 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/{id}/profile")
@@ -34,10 +38,13 @@ public class UserController {
 
         User user = userService.getById(id);
 
+        EmailPreference emailPreference = emailService.getEmailPreference(user.getId());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit-profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
+        modelAndView.addObject("emailPreference", emailPreference);
 
         return modelAndView;
     }

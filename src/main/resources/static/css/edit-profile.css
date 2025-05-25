@@ -127,6 +127,10 @@ body, html {
     color: #e71717;
 }
 
+.text-active {
+    color: lawngreen !important;
+}
 
-
-
+.text-inactive {
+    color: red !important;
+}

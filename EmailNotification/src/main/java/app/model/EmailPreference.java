@@ -23,7 +23,6 @@ public class EmailPreference {
     @Column(nullable = false)
     private boolean active;
 
-    @Column(nullable = false)
     private String emailAddress;
 
     @Column(nullable = false)

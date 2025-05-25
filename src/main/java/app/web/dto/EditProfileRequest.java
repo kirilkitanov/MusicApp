@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EditProfileRequest {
 
-    @Size(max = 20, message = "First name must be up to 20 characters!")
+    @Size(max = 30, message = "First name must be up to 30 characters!")
     private String firstName;
 
-    @Size(max = 20, message = "First name must be up to 20 characters!")
+    @Size(max = 30, message = "First name must be up to 30 characters!")
     private String lastName;
 
     @NotBlank(message = "Email cannot be blank")
