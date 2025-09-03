@@ -2,12 +2,10 @@ package app.notification.client;
 
 import app.notification.client.dto.CreatePreference;
 import app.notification.client.dto.EmailPreference;
+import app.notification.client.dto.SendEmailRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -19,6 +17,9 @@ public interface EmailClient {
     ResponseEntity<Void> createPreference (@RequestBody CreatePreference createPreference);
 
     @GetMapping("/preferences")
-    ResponseEntity<EmailPreference> getUserPrefernce(@RequestParam (name = "userId") UUID userID);
+    ResponseEntity<EmailPreference> getUserPreference(@RequestParam (name = "userId") UUID userID);
+
+    @PostMapping()
+    ResponseEntity<Void> sendEmail(@RequestBody SendEmailRequest sendEmailRequest);
 
 }

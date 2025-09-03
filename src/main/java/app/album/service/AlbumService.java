@@ -3,6 +3,7 @@ package app.album.service;
 import app.album.model.Album;
 import app.album.model.AlbumStatus;
 import app.album.repository.AlbumRepository;
+import app.notification.service.EmailService;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.EditAlbumRequest;
@@ -22,11 +23,15 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final UserService userService;
+    private final EmailService emailService;
+    private final FavouriteAlbumService favouriteAlbumService;
 
     @Autowired
-    public AlbumService(AlbumRepository albumRepository, UserService userService) {
+    public AlbumService(AlbumRepository albumRepository, UserService userService, EmailService emailService, FavouriteAlbumService favouriteAlbumService) {
         this.albumRepository = albumRepository;
         this.userService = userService;
+        this.emailService = emailService;
+        this.favouriteAlbumService = favouriteAlbumService;
     }
 
     public void addNewAlbum(NewAlbumRequest newAlbumRequest, User user) {
@@ -45,6 +50,19 @@ public class AlbumService {
 
         albumRepository.save(album);
 
+        List<User> subscribers = favouriteAlbumService.getUsersWhoFavoritedArtist(album.getArtistName());
+
+        String subject = "We have a new album from " + album.getArtistName() + " for you";
+
+        String body = album.getArtistName() + " released a new album: " + album.getAlbumName() +
+                "\n Follow the link for more information: http://localhost:8080/albums/" + album.getId() + "/view";
+
+        for (User subscriber : subscribers) {
+            emailService.sendEmail(
+                    subscriber.getId(),
+                    subject,
+                    body);
+        }
     }
 
     public List<Album> findAlbumsByUser(User user) {

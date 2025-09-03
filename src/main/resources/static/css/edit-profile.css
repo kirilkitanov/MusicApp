@@ -13,12 +13,12 @@ body, html {
 
 .user-info {
     text-align: center;
-    margin-bottom: 150px;
+    margin-bottom: 125px;
 }
 
 .user-info h2,
 .user-info h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 5px;
 }
 
@@ -91,11 +91,17 @@ body, html {
 
 .edit-profile-form {
     background-color: transparent;
+    text-align: center;
+}
+
+.forms-wrapper {
+    background-color: transparent;
     border: 2px solid white;
     padding: 30px;
     border-radius: 10px;
-    text-align: center;
     width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .edit-profile-form input,
@@ -134,3 +140,7 @@ body, html {
 .text-inactive {
     color: red !important;
 }
+
+
+
+

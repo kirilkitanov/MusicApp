@@ -26,27 +26,41 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/preferences")
-    public ResponseEntity<EmailPreferenceResponse> createPreference(@RequestBody PreferenceRequest preferenceRequest){
+//    @PostMapping("/preferences")
+//    public ResponseEntity<EmailPreferenceResponse> createPreference(@RequestBody PreferenceRequest preferenceRequest) {
+//
+//        //entity
+//        EmailPreference emailPreference = emailService.createPreference(preferenceRequest);
+//
+//        //dto
+//        EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
+//
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body(emailPreferenceResponse);
+//    }
 
-       EmailPreference emailPreference = emailService.createPreference(preferenceRequest);
+//    @PutMapping("/preferences")
+//    public ResponseEntity<EmailPreferenceResponse> updatePreference(@RequestBody PreferenceRequest preferenceRequest) {
+//
+//        EmailPreference emailPreference = emailService.updatePreference(preferenceRequest);
+//
+//        EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
+//
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(emailPreferenceResponse);
+//    }
+
+    @PostMapping("/preferences")
+    public ResponseEntity<EmailPreferenceResponse> upsertPreference(@RequestBody PreferenceRequest preferenceRequest) {
+
+        EmailPreference emailPreference = emailService.upsertPreference(preferenceRequest);
 
         EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(emailPreferenceResponse);
-    }
-
-    @PutMapping("/preferences")
-    public ResponseEntity<EmailPreferenceResponse> updatePreference(@RequestBody PreferenceRequest preferenceRequest) {
-
-        EmailPreference emailPreference = emailService.updatePreference(preferenceRequest);
-
-        EmailPreferenceResponse emailPreferenceResponse = DtoMapper.fromEmailPreference(emailPreference);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
                 .body(emailPreferenceResponse);
     }
 
@@ -63,7 +77,7 @@ public class EmailController {
     }
 
     @PostMapping()
-    public ResponseEntity<EmailResponse> sendEmail(@RequestBody SendEmailRequest sendEmailRequest){
+    public ResponseEntity<EmailResponse> sendEmail(@RequestBody SendEmailRequest sendEmailRequest) {
 
         Email email = emailService.sendEmail(sendEmailRequest);
 

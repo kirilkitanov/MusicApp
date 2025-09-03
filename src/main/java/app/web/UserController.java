@@ -48,24 +48,52 @@ public class UserController {
 
         return modelAndView;
     }
+//    Редиректвам към /home
+//    @PutMapping("/{id}/profile")
+//    public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            User user = userService.getById(id);
+//            ModelAndView modelAndView = new ModelAndView();
+//            modelAndView.setViewName("edit-profile");
+//            modelAndView.addObject("user", user);
+//            modelAndView.addObject("editProfileRequest", editProfileRequest);
+//            return modelAndView;
+//        }
+//
+//        userService.editProfileRequest (id, editProfileRequest);
+//
+//        return new ModelAndView("redirect:/home");
+//    }
 
+//  Оставам на същата страница... TODO логика за ъпдейт на паролата
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
 
+        User user = userService.getById(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("edit-profile");
+
         if (bindingResult.hasErrors()) {
-            User user = userService.getById(id);
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("edit-profile");
             modelAndView.addObject("user", user);
             modelAndView.addObject("editProfileRequest", editProfileRequest);
+            modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
             return modelAndView;
         }
 
-        userService.editProfileRequest (id, editProfileRequest);
+        userService.editProfileRequest(id, editProfileRequest);
 
-        return new ModelAndView("redirect:/home");
+        user = userService.getById(id);
+
+        EmailPreference preference = emailService.getEmailPreference(id);
+        emailService.savePreference(id, preference.isActive(), user.getEmail());
+
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
+        modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+
+        return modelAndView;
     }
-
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -83,7 +111,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}/role")
-    public String changeUserRole(@PathVariable UUID id,  @RequestParam("role") UserRole userRole) {
+    public String changeUserRole(@PathVariable UUID id, @RequestParam("role") UserRole userRole) {
 
         userService.changeRole(id, userRole);
 
@@ -96,6 +124,14 @@ public class UserController {
         userService.changeStatus(id);
 
         return "redirect:/users";
+    }
+
+    @PutMapping("/{id}/notifications")
+    public String toggleNotificationPreference(@PathVariable UUID id, @RequestParam boolean isPreferenceActive, @RequestParam String emailAddress) {
+
+        emailService.savePreference(id, isPreferenceActive, emailAddress);
+
+        return "redirect:/users/" + id + "/profile";
     }
 
 

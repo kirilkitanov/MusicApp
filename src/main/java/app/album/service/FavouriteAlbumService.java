@@ -51,4 +51,8 @@ public class FavouriteAlbumService {
                 .map(fav -> fav.getAlbum().getId())
                 .toList();
     }
+
+    public List<User> getUsersWhoFavoritedArtist(String artistName) {
+        return favouriteAlbumRepository.findDistinctUsersByAlbumArtistName(artistName);
+    }
 }
