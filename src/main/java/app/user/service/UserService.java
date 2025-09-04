@@ -61,12 +61,20 @@ public class UserService implements UserDetailsService {
 
         emailService.savePreference(user.getId(), true, user.getEmail());
 
+        String subject = "Welcome to MusicApp!";
+        String body = "Hello " + user.getUsername() + ",\n\n" +
+                        "Thank you for registering at MusicApp.\n" +
+                        "You can now explore your favourite albums and write reviews.\n\n" +
+                        "Enjoy!\nMusicApp Team";
+
+        emailService.sendEmail (user.getId(), subject, body);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         return new AuthenticationDetails(user.getId(), user.getUsername(), user.getPassword(), user.getRole(), user.isActive());
     }

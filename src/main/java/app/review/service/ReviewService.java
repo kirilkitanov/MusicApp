@@ -2,6 +2,7 @@ package app.review.service;
 
 import app.album.model.Album;
 import app.album.service.AlbumService;
+import app.notification.service.EmailService;
 import app.review.model.Review;
 import app.review.repository.ReviewRepository;
 import app.user.model.User;
@@ -22,11 +23,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final AlbumService albumService;
 
+    private final EmailService emailService;
+
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, AlbumService albumService) {
+    public ReviewService(ReviewRepository reviewRepository, AlbumService albumService, EmailService emailService) {
         this.reviewRepository = reviewRepository;
         this.albumService = albumService;
+        this.emailService = emailService;
     }
 
 
@@ -43,6 +47,17 @@ public class ReviewService {
                 .build();
 
         reviewRepository.save(review);
+
+        User albumOwner = album.getUser();
+
+        String subject = "New review on your album: " + album.getAlbumName();
+        String body = "User " + "'" + user.getUsername() + "'" +
+                " left a review for your album \"" + album.getAlbumName() + "\":\n\n" +
+                "\"" + review.getComment() + "\"\n\n" +
+                "View the album here: http://localhost:8080/albums/" + album.getId() + "/view";
+
+        emailService.sendEmail(albumOwner.getId(), subject, body);
+
     }
 
     public List<Review> getReviewsByAlbum(Album album) {

@@ -53,15 +53,11 @@ public class AlbumService {
         List<User> subscribers = favouriteAlbumService.getUsersWhoFavoritedArtist(album.getArtistName());
 
         String subject = "We have a new album from " + album.getArtistName() + " for you";
-
         String body = album.getArtistName() + " released a new album: " + album.getAlbumName() +
                 "\n Follow the link for more information: http://localhost:8080/albums/" + album.getId() + "/view";
 
         for (User subscriber : subscribers) {
-            emailService.sendEmail(
-                    subscriber.getId(),
-                    subject,
-                    body);
+            emailService.sendEmail (subscriber.getId(), subject, body);
         }
     }
 
