@@ -51,7 +51,8 @@ public class UserService implements UserDetailsService {
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .email(registerRequest.getEmail())
-                .role(UserRole.FAN)
+//                .role(UserRole.FAN)
+                .role(registerRequest.getRole())
                 .isActive(true)
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())
@@ -92,6 +93,10 @@ public class UserService implements UserDetailsService {
         user.setLastName(editProfileRequest.getLastName());
         user.setEmail(editProfileRequest.getEmail());
         user.setUpdatedOn(LocalDateTime.now());
+
+        if (editProfileRequest.getPassword() != null && !editProfileRequest.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(editProfileRequest.getPassword()));
+        }
 
         userRepository.save(user);
     }

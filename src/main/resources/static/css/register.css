@@ -20,6 +20,7 @@ body {
 }
 
 .register-form input,
+.register-form select,
 .register-btn {
     display: block;
     width: 100%;
@@ -27,8 +28,8 @@ body {
     margin: 10px 0;
     border: none;
     border-radius: 5px;
-    box-sizing: border-box; /* Гарантира, че padding не влияе на ширината */
-    text-align: center; /* Центрира текста */
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .register-btn {

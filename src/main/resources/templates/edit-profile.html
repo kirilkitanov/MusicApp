@@ -69,6 +69,9 @@
             <label><input type="email" placeholder="Email" th:field="*{email}"></label>
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning"></p>
 
+            <label><input type="password" placeholder="Password" th:field="*{password}"></label>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-warning"></p>
+
             <button type="submit" class="edit-profile-btn">Save Changes</button>
         </form>
 

@@ -1,8 +1,13 @@
 package app.web.dto;
 
 
+import app.user.model.UserRole;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +31,9 @@ public class RegisterRequest {
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email should be valid")
     private String email;
+
+    @NotNull(message = "User role cannot be blank")
+    private UserRole role; //ADMIN, FAN, ARTIST;
 
 }
 

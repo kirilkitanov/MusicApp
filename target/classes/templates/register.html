@@ -24,6 +24,14 @@
         <input type="email" id="email" placeholder="Email" th:field="*{email}" required>
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning">Error Text Here</p>
 
+        <label for="role"></label>
+        <select id="role" th:field="*{role}" required>
+            <option value="">You are</option>
+            <option th:value="FAN">Fan</option>
+            <option th:value="ARTIST">Artist</option>
+        </select>
+        <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="text-warning"></p>
+
         <button type="submit" class="register-btn">Register</button>
 
         <p class="form-already">Already have an account? <a th:href="@{/login}">Login</a></p>
