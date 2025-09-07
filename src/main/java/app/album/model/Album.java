@@ -48,6 +48,8 @@ public class Album {
     @Column(nullable = false)
     private LocalDateTime createdOn;
 
+    @Column
+    private String youtubeVideoId;
 
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();

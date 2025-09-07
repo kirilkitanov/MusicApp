@@ -66,7 +66,7 @@ public class UserController {
 //        return new ModelAndView("redirect:/home");
 //    }
 
-//  Оставам на същата страница... TODO логика за ъпдейт на паролата
+//  Оставам на същата страница...
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
 

@@ -37,9 +37,20 @@
 <div class="album-container">
     <div class="album-info">
         <div class="album-details">
+
             <div class="album-image">
                 <img src="" th:src="${album.albumCover != null && album.albumCover != '' ? album.albumCover : '/images/no-image-available.svg'}" alt="Album Cover">
+
+                <div class="album-player" th:if="${album.youtubeVideoId != null and album.youtubeVideoId != ''}">
+                    <iframe
+                            id="youtube-player"
+                            th:src="'https://www.youtube.com/embed/' + ${album.youtubeVideoId}"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
             </div>
+
             <div class="album-text">
                 <h2><span class="label">Album:</span> <span th:text="${album.albumName}"></span></h2>
                 <h3><span class="label">Artist:</span> <span th:text="${album.artistName}"></span></h3>

@@ -3,6 +3,7 @@ package app.web.dto;
 import app.album.model.Genre;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +36,10 @@ public class NewAlbumRequest {
 
     @Size(max = 1500, message = "Description cannot have more than 1500 symbols")
     private String description;
+
+    @Size(max = 20, message = "YouTube Video ID cannot have more than 20 symbols")
+    @Pattern(regexp = "^$|^[a-zA-Z0-9_-]+$", message = "Enter valid ID")
+    private String youtubeVideoId;
+
 
 }

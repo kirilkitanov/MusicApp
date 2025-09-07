@@ -64,6 +64,9 @@
 
         <label><input type="url" placeholder="Cover Url" th:field="*{albumCover}"></label>
 
+        <label><input type="text" placeholder="YouTube Video ID" th:field="*{youtubeVideoId}"></label>
+        <p th:if="${#fields.hasErrors('youtubeVideoId')}" th:errors="*{youtubeVideoId}" class="text-warning"></p>
+
         <button type="submit" class="add-album-btn">Save Changes</button>
     </form>
 </div>

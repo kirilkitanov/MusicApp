@@ -216,3 +216,7 @@ body, html {
     margin-right: 10px
 }
 
+.album-table a:hover {
+    color: #F57F17;
+}
+

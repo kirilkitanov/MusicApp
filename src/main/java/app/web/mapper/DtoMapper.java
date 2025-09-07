@@ -28,6 +28,7 @@ public class DtoMapper {
                 .genre(album.getGenre())
                 .albumCover(album.getAlbumCover())
                 .releaseDate(album.getReleaseDate())
+                .youtubeVideoId(album.getYoutubeVideoId())
                 .build();
     }
 

@@ -89,6 +89,13 @@ public class UserService implements UserDetailsService {
 
         User user = getById(userId);
 
+        if (!user.getEmail().equals(editProfileRequest.getEmail())) {
+            Optional<User> existingUser = userRepository.findByEmail(editProfileRequest.getEmail());
+            if (existingUser.isPresent()) {
+                throw new RuntimeException("Email [%s] already exists.".formatted(editProfileRequest.getEmail()));
+            }
+        }
+
         user.setFirstName(editProfileRequest.getFirstName());
         user.setLastName(editProfileRequest.getLastName());
         user.setEmail(editProfileRequest.getEmail());

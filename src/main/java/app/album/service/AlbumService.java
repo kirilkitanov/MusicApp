@@ -43,6 +43,7 @@ public class AlbumService {
                 .genre(newAlbumRequest.getGenre())
                 .albumCover(newAlbumRequest.getAlbumCover())
                 .releaseDate(newAlbumRequest.getReleaseDate())
+                .youtubeVideoId(newAlbumRequest.getYoutubeVideoId())
                 .albumStatus(AlbumStatus.VISIBLE)
                 .createdOn(LocalDateTime.now())
                 .user(user)
@@ -114,6 +115,7 @@ public class AlbumService {
         album.setAlbumCover(editAlbumRequest.getAlbumCover());
         album.setReleaseDate(editAlbumRequest.getReleaseDate());
         album.setDescription(editAlbumRequest.getDescription());
+        album.setYoutubeVideoId(editAlbumRequest.getYoutubeVideoId());
 
         albumRepository.save(album);
     }
