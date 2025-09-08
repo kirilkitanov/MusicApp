@@ -96,7 +96,7 @@ public class ReviewService {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
 
         if (optionalReview.isEmpty()) {
-            throw new RuntimeException("Review not found with id [%s]".formatted(reviewId));
+            throw new RuntimeException("Review not found with id %s".formatted(reviewId));
         }
 
         Review review = optionalReview.get();

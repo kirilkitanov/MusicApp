@@ -1,5 +1,7 @@
 package app.user.service;
 
+import app.exception.EmailAlreadyExistException;
+import app.exception.UsernameAlreadyExistException;
 import app.notification.service.EmailService;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
@@ -39,12 +41,12 @@ public class UserService implements UserDetailsService {
 
         Optional<User> optionUser = userRepository.findByUsername(registerRequest.getUsername());
         if (optionUser.isPresent()) {
-            throw new RuntimeException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
+            throw new UsernameAlreadyExistException("Username %s already exist.".formatted(registerRequest.getUsername()));
         }
 
         Optional<User> optionEmail = userRepository.findByEmail(registerRequest.getEmail());
         if (optionEmail.isPresent()) {
-            throw new RuntimeException("Email [%s] already exist.".formatted(registerRequest.getEmail()));
+            throw new EmailAlreadyExistException("Email %s already exist.".formatted(registerRequest.getEmail()));
         }
 
         User user = User.builder()
@@ -92,7 +94,7 @@ public class UserService implements UserDetailsService {
         if (!user.getEmail().equals(editProfileRequest.getEmail())) {
             Optional<User> existingUser = userRepository.findByEmail(editProfileRequest.getEmail());
             if (existingUser.isPresent()) {
-                throw new RuntimeException("Email [%s] already exists.".formatted(editProfileRequest.getEmail()));
+                throw new EmailAlreadyExistException("Email %s already exists.".formatted(editProfileRequest.getEmail()));
             }
         }
 

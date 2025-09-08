@@ -126,6 +126,6 @@ public class AlbumService {
     }
 
     public Album getById(UUID albumId) {
-        return albumRepository.findById(albumId).orElseThrow(() -> new RuntimeException("Album not found with id [%s]".formatted(albumId)));
+        return albumRepository.findById(albumId).orElseThrow(() -> new RuntimeException("Album not found with id %s".formatted(albumId)));
     }
 }

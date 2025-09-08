@@ -15,6 +15,7 @@
         <label for="username"></label>
         <input type="text" id="username" placeholder="Username"  th:field="*{username}" required>
         <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-warning">Error Text Here</p>
+        <p th:if="${usernameAlreadyExistMessage}" th:text="${usernameAlreadyExistMessage}" class="text-warning"></p>
 
         <label for="password"></label>
         <input type="password" id="password" placeholder="Password" th:field="*{password}" required>
@@ -23,6 +24,7 @@
         <label for="email"></label>
         <input type="email" id="email" placeholder="Email" th:field="*{email}" required>
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-warning">Error Text Here</p>
+        <p th:if="${emailAlreadyExistMessage}" th:text="${emailAlreadyExistMessage}" class="text-warning"></p>
 
         <label for="role"></label>
         <select id="role" th:field="*{role}" required>

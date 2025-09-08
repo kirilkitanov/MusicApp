@@ -1,5 +1,6 @@
 package app.web;
 
+import app.exception.EmailAlreadyExistException;
 import app.notification.client.dto.EmailPreference;
 import app.notification.service.EmailService;
 import app.security.AuthenticationDetails;
@@ -67,12 +68,40 @@ public class UserController {
 //    }
 
 //  Оставам на същата страница...
+//    @PutMapping("/{id}/profile")
+//    public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
+//
+//        User user = userService.getById(id);
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("edit-profile");
+//
+//        if (bindingResult.hasErrors()) {
+//            modelAndView.addObject("user", user);
+//            modelAndView.addObject("editProfileRequest", editProfileRequest);
+//            modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+//            return modelAndView;
+//        }
+//
+//        userService.editProfileRequest(id, editProfileRequest);
+//
+//        user = userService.getById(id);
+//
+//        EmailPreference preference = emailService.getEmailPreference(id);
+//        emailService.savePreference(id, preference.isActive(), user.getEmail());
+//
+//        modelAndView.addObject("user", user);
+//        modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
+//        modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+//
+//        return modelAndView;
+//    }
+
+//    Просто не намерих друго решение освен с try/catch тук
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
-
         User user = userService.getById(id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("edit-profile");
+        modelAndView.setViewName ("edit-profile");
 
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("user", user);
@@ -81,19 +110,28 @@ public class UserController {
             return modelAndView;
         }
 
-        userService.editProfileRequest(id, editProfileRequest);
+        try {
+            userService.editProfileRequest(id, editProfileRequest);
 
-        user = userService.getById(id);
+            user = userService.getById(id);
+            EmailPreference preference = emailService.getEmailPreference(id);
+            emailService.savePreference(id, preference.isActive(), user.getEmail());
 
-        EmailPreference preference = emailService.getEmailPreference(id);
-        emailService.savePreference(id, preference.isActive(), user.getEmail());
-
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
-        modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
+            modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+        }
+        catch (EmailAlreadyExistException exception) {
+            modelAndView.addObject("emailAlreadyExistMessage", exception.getMessage());
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("editProfileRequest", editProfileRequest);
+            modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
+        }
 
         return modelAndView;
     }
+
+
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")

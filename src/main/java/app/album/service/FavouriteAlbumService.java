@@ -39,7 +39,7 @@ public class FavouriteAlbumService {
 
     public void deleteFavourites(User user, Album album) {
         FavouriteAlbum favouriteAlbum = favouriteAlbumRepository.findByUserAndAlbum(user, album)
-                .orElseThrow(() -> new RuntimeException("Favourite album not found with id [%s]".formatted(album)));
+                .orElseThrow(() -> new RuntimeException("Favourite album not found with id %s".formatted(album)));
 
         favouriteAlbumRepository.delete(favouriteAlbum);
 

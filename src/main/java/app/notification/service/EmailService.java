@@ -33,7 +33,7 @@ public void savePreference(UUID userID, boolean isPreferenceActive, String email
     ResponseEntity<Void> httpResponse = emailClient.createPreference(createPreference);
 
     if (!httpResponse.getStatusCode().is2xxSuccessful())
-        log.error("Cannot create preference for user [%s]".formatted(userID));
+        log.error("Cannot create preference for user %s".formatted(userID));
 }
 
     public EmailPreference getEmailPreference(UUID userId) {
@@ -53,7 +53,7 @@ public void savePreference(UUID userID, boolean isPreferenceActive, String email
         ResponseEntity<Void> httpResponse = emailClient.sendEmail(request);
 
         if (!httpResponse.getStatusCode().is2xxSuccessful()) {
-            log.error("Cannot send email to user [%s]".formatted(userId));
+            log.error("Cannot send email to user %s".formatted(userId));
         }
     }
 }
