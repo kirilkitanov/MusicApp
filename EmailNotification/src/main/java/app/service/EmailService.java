@@ -1,8 +1,7 @@
 package app.service;
 
-import app.exception.EmailPreferenceAlreadyExistsException;
+
 import app.exception.EmailPreferenceDisabledException;
-import app.exception.EmailPreferenceNotFoundException;
 import app.model.Email;
 import app.model.EmailPreference;
 import app.model.EmailStatus;
@@ -96,7 +95,6 @@ public class EmailService {
     }
 
 
-
     public EmailPreference getPreferenceByUserId(UUID userId) {
         Optional<EmailPreference> existingPreference = emailPreferenceRepository.findByUserId(userId);
 
@@ -122,7 +120,16 @@ public class EmailService {
         EmailPreference userPreference = getPreferenceByUserId(userId);
 
         if (!userPreference.isActive()) {
-            throw new EmailPreferenceDisabledException("Email preference for user [%s] are disabled.".formatted(userId));
+            log.info("Skipping email for user {} because notifications are disabled", userId);
+            return emailRepository.save(
+                    Email.builder()
+                            .userId(userId)
+                            .subject(sendEmailRequest.getSubject())
+                            .body(sendEmailRequest.getBody())
+                            .status(EmailStatus.SKIPPED)
+                            .createdOn(LocalDateTime.now())
+                            .build()
+            );
         }
 
         Email email = Email.builder().
@@ -133,14 +140,14 @@ public class EmailService {
                 .build();
 
         try {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userPreference.getEmailAddress());
-        message.setSubject(sendEmailRequest.getSubject());
-        message.setText(sendEmailRequest.getBody());
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(userPreference.getEmailAddress());
+            message.setSubject(sendEmailRequest.getSubject());
+            message.setText(sendEmailRequest.getBody());
 
-        mailSender.send(message);
+            mailSender.send(message);
 
-        email.setStatus(EmailStatus.SUCCEEDED);
+            email.setStatus(EmailStatus.SUCCEEDED);
             log.info("Successfully sent email to {}", userPreference.getEmailAddress());
 
         } catch (Exception e) {
@@ -151,5 +158,6 @@ public class EmailService {
         return emailRepository.save(email);
     }
 }
+
 
 
