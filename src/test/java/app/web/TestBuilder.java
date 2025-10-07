@@ -1,6 +1,8 @@
 package app.web;
-
-
+import app.album.model.Album;
+import app.album.model.AlbumStatus;
+import app.album.model.Genre;
+import app.review.model.Review;
 import app.user.model.User;
 import app.user.model.UserRole;
 import lombok.experimental.UtilityClass;
@@ -22,5 +24,32 @@ public class TestBuilder {
                 .build();
 
         return user;
+
     }
+
+    public static Album aRandomAlbum(User user) {
+        return Album.builder()
+                .id(UUID.randomUUID())
+                .albumName("Test Album")
+                .artistName("Test Artist")
+                .description("Test Description")
+                .genre(Genre.POP)
+                .albumCover("http://cover.jpg")
+                .releaseDate("2025")
+                .albumStatus(AlbumStatus.VISIBLE)
+                .youtubeVideoId("abcd1234")
+                .user(user)
+                .build();
+    }
+
+    public static Review aRandomReview(User user, Album album) {
+        return Review.builder()
+                .id(UUID.randomUUID())
+                .comment("Test Review.")
+                .reported(false)
+                .user(user)
+                .album(album)
+                .build();
+    }
+
 }
