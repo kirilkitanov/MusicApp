@@ -2,7 +2,9 @@ package app.web;
 import app.album.model.Album;
 import app.album.model.AlbumStatus;
 import app.album.model.Genre;
+import app.notification.client.dto.EmailPreference;
 import app.review.model.Review;
+import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.model.UserRole;
 import lombok.experimental.UtilityClass;
@@ -49,6 +51,22 @@ public class TestBuilder {
                 .reported(false)
                 .user(user)
                 .album(album)
+                .build();
+    }
+
+    public static AuthenticationDetails userDetails(User user) {
+        return new AuthenticationDetails(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getRole(),
+                true
+        );
+    }
+
+    public static EmailPreference defaultEmailPreference() {
+        return EmailPreference.builder()
+                .active(true)
                 .build();
     }
 
