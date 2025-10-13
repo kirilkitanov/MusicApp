@@ -9,6 +9,7 @@ import app.user.model.UserRole;
 import app.user.repository.UserRepository;
 import app.web.dto.EditProfileRequest;
 import app.web.dto.RegisterRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserService implements UserDetailsService {
 
@@ -53,7 +55,6 @@ public class UserService implements UserDetailsService {
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .email(registerRequest.getEmail())
-//                .role(UserRole.FAN)
                 .role(registerRequest.getRole())
                 .isActive(true)
                 .createdOn(LocalDateTime.now())
@@ -61,16 +62,22 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
-
+        try {
         emailService.savePreference(user.getId(), true, user.getEmail());
+        } catch (Exception ex) {
+            log.error("Could not create email preference for user: {} {}", user.getUsername(), ex.getMessage());
+        }
 
         String subject = "Welcome to MusicApp!";
         String body = "Hello " + user.getUsername() + ",\n\n" +
                         "Thank you for registering at MusicApp.\n" +
                         "You can now explore your favourite albums and write reviews.\n\n" +
                         "Enjoy!\nMusicApp Team";
-
+        try {
         emailService.sendEmail (user.getId(), subject, body);
+        } catch (Exception ex) {
+            log.warn("Could not send welcome email to: {} {}", user.getEmail(), ex.getMessage());
+        }
     }
 
     @Override

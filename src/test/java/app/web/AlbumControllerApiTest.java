@@ -1,5 +1,6 @@
 package app.web;
 
+import app.TestBuilder;
 import app.album.model.Album;
 import app.album.service.AlbumService;
 import app.review.model.Review;
