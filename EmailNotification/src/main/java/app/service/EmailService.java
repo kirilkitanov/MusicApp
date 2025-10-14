@@ -1,7 +1,5 @@
 package app.service;
 
-
-import app.exception.EmailPreferenceDisabledException;
 import app.model.Email;
 import app.model.EmailPreference;
 import app.model.EmailStatus;
