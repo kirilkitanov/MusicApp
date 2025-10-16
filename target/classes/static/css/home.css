@@ -103,17 +103,24 @@ body, html {
     border-radius: 10px;
     text-align: center;
     transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .album-card img {
     width: 95%;
     height: auto;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 .album-card h3 {
     font-size: 1rem;
     color: #333;
+    margin-bottom: 0px;
+    word-wrap: break-word;
 }
 
 .album-card p {

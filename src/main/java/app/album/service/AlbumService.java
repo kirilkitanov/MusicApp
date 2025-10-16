@@ -8,6 +8,7 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.EditAlbumRequest;
 import app.web.dto.NewAlbumRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class AlbumService {
 
@@ -57,8 +59,12 @@ public class AlbumService {
         String body = album.getArtistName() + " released a new album: " + album.getAlbumName() +
                 "\n Follow the link for more information: http://localhost:8080/albums/" + album.getId() + "/view";
 
-        for (User subscriber : subscribers) {
-            emailService.sendEmail (subscriber.getId(), subject, body);
+        try {
+            for (User subscriber : subscribers) {
+                emailService.sendEmail(subscriber.getId(), subject, body);
+            }
+        } catch (Exception ex) {
+            log.error("Failed to send notification for album with ID: {} Error: {}", album.getId(), ex.getMessage());
         }
     }
 

@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
         try {
         emailService.savePreference(user.getId(), true, user.getEmail());
         } catch (Exception ex) {
-            log.error("Could not create email preference for user: {} {}", user.getUsername(), ex.getMessage());
+            log.error("Could not create email preference for user: {} Error: {}", user.getUsername(), ex.getMessage());
         }
 
         String subject = "Welcome to MusicApp!";
@@ -76,7 +76,7 @@ public class UserService implements UserDetailsService {
         try {
         emailService.sendEmail (user.getId(), subject, body);
         } catch (Exception ex) {
-            log.warn("Could not send welcome email to: {} {}", user.getEmail(), ex.getMessage());
+            log.warn("Could not send welcome email to: {} Error: {}", user.getEmail(), ex.getMessage());
         }
     }
 

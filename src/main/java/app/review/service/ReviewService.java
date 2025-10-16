@@ -8,6 +8,7 @@ import app.review.repository.ReviewRepository;
 import app.user.model.User;
 import app.web.dto.NewReviewRequest;
 import app.web.dto.ReportRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
+@Slf4j
 @Service
 public class ReviewService {
 
@@ -55,9 +56,11 @@ public class ReviewService {
                 " left a review for your album \"" + album.getAlbumName() + "\":\n\n" +
                 "\"" + review.getComment() + "\"\n\n" +
                 "View the album here: http://localhost:8080/albums/" + album.getId() + "/view";
-
-        emailService.sendEmail(albumOwner.getId(), subject, body);
-
+        try {
+            emailService.sendEmail(albumOwner.getId(), subject, body);
+        } catch (Exception ex) {
+            log.error("Failed to send review notification with ID: {} Error: {}", review.getId(), ex.getMessage());
+        }
     }
 
     public List<Review> getReviewsByAlbum(Album album) {
