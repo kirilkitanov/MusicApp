@@ -19,7 +19,6 @@ public class DtoMapper {
                 .build();
     }
 
-
     public static EmailResponse fromEmail(Email email) {
 
         return EmailResponse.builder()

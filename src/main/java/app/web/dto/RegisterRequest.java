@@ -2,9 +2,6 @@ package app.web.dto;
 
 
 import app.user.model.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +30,7 @@ public class RegisterRequest {
     private String email;
 
     @NotNull(message = "User role cannot be blank")
-    private UserRole role; //ADMIN, FAN, ARTIST;
+    private UserRole role;
 
 }
 

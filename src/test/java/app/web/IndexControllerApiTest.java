@@ -66,7 +66,6 @@ public class IndexControllerApiTest {
     @Test
     void postRequestToRegisterEndpoint_withValidData_shouldCallServiceAndSetFlashMessage() throws Exception {
 
-        // Build Request
         MockHttpServletRequestBuilder request = post("/register")
                 .param("username", "testUser")
                 .param("password", "123123")
@@ -74,13 +73,11 @@ public class IndexControllerApiTest {
                 .param("role", "FAN")
                 .with(csrf());
 
-        // Send Request
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"))
                 .andExpect(flash().attribute("successMessage", "Your account has been successfully created."));
 
-        // Verify
         verify(userService, times(1)).register(any(RegisterRequest.class));
     }
 

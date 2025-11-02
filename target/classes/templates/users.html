@@ -9,7 +9,6 @@
 <body class="home-page">
 
 <div class="left-side">
-    <!-- Информация за потребителя -->
     <div class="user-info">
         <h3>Welcome,</h3>
         <h3 th:if="${user.firstName != null or user.lastName != null}"
@@ -18,7 +17,7 @@
         <h3 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</h3>
     </div>
 
-    <!-- Бутоните под информацията -->
+
     <div class="nav-bar">
         <a th:href="@{/home}" class="nav-btn">All Albums</a>
         <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
@@ -33,7 +32,7 @@
 </div>
 <div class="separator"></div>
 
-<!-- Дясната част -->
+
 <div class="album-table-container">
     <table class="album-table">
         <thead>
@@ -90,6 +89,5 @@
         </tbody>
     </table>
 </div>
-
 </body>
 </html>

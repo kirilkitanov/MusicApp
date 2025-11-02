@@ -122,4 +122,32 @@ public class UserControllerApiTest {
         verify(emailService).savePreference(eq(id), eq(true), eq("user@email.com"));
     }
 
+    @Test
+    void putUpdateUserProfile_withValidData_shouldReturnEditProfileViewAndCallServices() throws Exception {
+
+        User user = aRandomUser();
+        UUID userId = user.getId();
+        AuthenticationDetails principal = userDetails(user);
+        EmailPreference preference = defaultEmailPreference();
+        preference.setActive(true);
+
+        when(userService.getById(userId)).thenReturn(user);
+        when(emailService.getEmailPreference(userId)).thenReturn(preference);
+
+        mockMvc.perform(put("/users/{id}/profile", userId)
+                        .with(user(principal))
+                        .with(csrf())
+                        .param("username", "updatedUser")
+                        .param("email", "updated@example.com")
+                        .param("firstName", "Updated")
+                        .param("lastName", "User"))
+
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit-profile"))
+                .andExpect(model().attributeExists("user", "editProfileRequest", "emailPreference"));
+
+        verify(userService, times(1)).editProfileRequest(eq(userId), any());
+        verify(emailService, times(2)).getEmailPreference(userId);
+        verify(emailService, times(1)).savePreference(eq(userId), eq(true), eq(user.getEmail()));
+    }
 }

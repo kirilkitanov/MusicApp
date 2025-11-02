@@ -40,7 +40,7 @@ public class ReviewServiceUTest {
 
     @Test
     void givenValidRequest_whenAddNewReview_thenSaveAndSendEmail() {
-        // Given
+
         User user = new User();
         user.setUsername("Reviewer");
 
@@ -56,10 +56,8 @@ public class ReviewServiceUTest {
 
         when(albumService.getById(request.getAlbumId())).thenReturn(album);
 
-        // When
         reviewService.addNewReview(request, user);
 
-        // Then
         verify(reviewRepository, times(1)).save(any(Review.class));
         verify(emailService, times(1)).sendEmail(
                 eq(albumOwner.getId()),
@@ -70,45 +68,39 @@ public class ReviewServiceUTest {
 
     @Test
     void givenAlbum_whenGetReviewsByAlbum_thenReturnReviews() {
-        // Given
+
         Album album = new Album();
         Review review = new Review();
         when(reviewRepository.findByAlbumOrderByCreatedOnDesc(album)).thenReturn(List.of(review));
 
-        // When
         List<Review> result = reviewService.getReviewsByAlbum(album);
 
-        // Then
         assertEquals(1, result.size());
     }
 
     @Test
     void givenReviewId_whenGetById_thenReturnReview() {
-        // Given
+
         UUID id = UUID.randomUUID();
         Review review = new Review();
         when(reviewRepository.findById(id)).thenReturn(Optional.of(review));
 
-        // When
         Review result = reviewService.getById(id);
 
-        // Then
         assertNotNull(result);
     }
 
     @Test
     void givenReportRequest_whenReportReview_thenSetReportedAndSave() {
-        // Given
+
         UUID id = UUID.randomUUID();
         Review review = new Review();
         when(reviewRepository.findById(id)).thenReturn(Optional.of(review));
         ReportRequest request = new ReportRequest();
         request.setReportReason(ReportReason.SPAM);
 
-        // When
         reviewService.reportReview(id, request);
 
-        // Then
         assertTrue(review.isReported());
         assertEquals(ReportReason.SPAM, review.getReportReason());
         verify(reviewRepository).save(review);
@@ -116,68 +108,59 @@ public class ReviewServiceUTest {
 
     @Test
     void givenUser_whenGetReviewsByUser_thenReturnList() {
-        // Given
+
         User user = new User();
         Review review = new Review();
         when(reviewRepository.findAllByUserOrderByCreatedOnDesc(user)).thenReturn(List.of(review));
 
-        // When
         List<Review> result = reviewService.getReviewsByUser(user);
 
-        // Then
         assertEquals(1, result.size());
     }
 
     @Test
     void givenExistingReview_whenDeleteReviewById_thenDeleteReview() {
-        // Given
+
         UUID id = UUID.randomUUID();
         Review review = new Review();
         when(reviewRepository.findById(id)).thenReturn(Optional.of(review));
 
-        // When
         reviewService.deleteReviewById(id);
 
-        // Then
         verify(reviewRepository).delete(review);
     }
 
     @Test
     void givenMissingReview_whenDeleteReviewById_thenThrowException() {
-        // Given
+
         UUID id = UUID.randomUUID();
         when(reviewRepository.findById(id)).thenReturn(Optional.empty());
 
-        // When & Then
         assertThrows(IllegalArgumentException.class, () -> reviewService.deleteReviewById(id));
     }
 
     @Test
     void whenGetAllReportedReviews_thenReturnList() {
-        // Given
+
         Review review = new Review();
         when(reviewRepository.findAllByReportedTrueOrderByCreatedOnDesc()).thenReturn(List.of(review));
 
-        // When
         List<Review> result = reviewService.getAllReportedReviews();
 
-        // Then
         assertEquals(1, result.size());
     }
 
     @Test
     void givenReportedReview_whenRestoreReportedReview_thenUnreportAndSave() {
-        // Given
+
         UUID id = UUID.randomUUID();
         Review review = new Review();
         review.setReported(true);
         review.setReportReason(ReportReason.SPAM);
         when(reviewRepository.findById(id)).thenReturn(Optional.of(review));
 
-        // When
         reviewService.restoreReportedReview(id);
 
-        // Then
         assertFalse(review.isReported());
         assertNull(review.getReportReason());
         verify(reviewRepository).save(review);
@@ -185,26 +168,21 @@ public class ReviewServiceUTest {
 
     @Test
     void givenMissingReview_whenRestoreReportedReview_thenThrowException() {
-        // Given
+
         UUID id = UUID.randomUUID();
         when(reviewRepository.findById(id)).thenReturn(Optional.empty());
 
-        // When & Then
         assertThrows(RuntimeException.class, () -> reviewService.restoreReportedReview(id));
     }
 
     @Test
     void whenDeleteAllReportedReviews_thenDeleteReported() {
-        // Given
+
         Review review = new Review();
         when(reviewRepository.findAllByReportedTrueOrderByCreatedOnDesc()).thenReturn(List.of(review));
 
-        // When
         reviewService.deleteAllReportedReviews();
 
-        // Then
         verify(reviewRepository).deleteAll(anyList());
     }
-
-
 }

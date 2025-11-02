@@ -57,7 +57,6 @@ public class EmailControllerApiTest {
     void upsertPreference_shouldReturnCreatedPreference() throws Exception {
         UUID userId = UUID.randomUUID();
 
-        // Build Request
         PreferenceRequest requestDto = new PreferenceRequest();
         requestDto.setUserId(userId);
         requestDto.setPreferenceActive(true);
@@ -73,12 +72,10 @@ public class EmailControllerApiTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        // Build Mock Request
         MockHttpServletRequestBuilder request = post("/api/v1/emails/preferences")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(requestDto));
 
-        // Perform Request and Verify
         mockMvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())

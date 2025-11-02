@@ -32,42 +32,6 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-
-//    public EmailPreference createPreference(PreferenceRequest preferenceRequest) {
-//
-//        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preferenceRequest.getUserId());
-//
-//        if (userEmailPreferenceOptional.isPresent()) {
-//            throw new EmailPreferenceAlreadyExistsException("Email preference for user [%s] already exists.".formatted(preferenceRequest.getUserId()));
-//        }
-//
-//        EmailPreference emailPreference = EmailPreference.builder()
-//                .userId(preferenceRequest.getUserId())
-//                .active(preferenceRequest.isPreferenceActive())
-//                .emailAddress(preferenceRequest.getEmailAddress())
-//                .createdOn(LocalDateTime.now())
-//                .updatedOn(LocalDateTime.now())
-//                .build();
-//        return emailPreferenceRepository.save(emailPreference);
-//    }
-
-
-//    public EmailPreference updatePreference(PreferenceRequest preferenceRequest) {
-//
-//        Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preferenceRequest.getUserId());
-//
-//        if (userEmailPreferenceOptional.isEmpty()) {
-//            throw new EmailPreferenceNotFoundException("Preference not found for user [%s].".formatted(preferenceRequest.getUserId()));
-//        }
-//
-//        EmailPreference emailPreference = userEmailPreferenceOptional.get();
-//        emailPreference.setActive(preferenceRequest.isPreferenceActive());
-//        emailPreference.setEmailAddress(preferenceRequest.getEmailAddress());
-//        emailPreference.setUpdatedOn(LocalDateTime.now());
-//
-//        return emailPreferenceRepository.save(emailPreference);
-//    }
-
     public EmailPreference upsertPreference(PreferenceRequest preferenceRequest) {
 
         Optional<EmailPreference> userEmailPreferenceOptional = emailPreferenceRepository.findByUserId(preferenceRequest.getUserId());
@@ -110,7 +74,6 @@ public class EmailService {
 
         return emailPreferenceRepository.save(defaultPreference);
     }
-
 
     public Email sendEmail(SendEmailRequest sendEmailRequest) {
 

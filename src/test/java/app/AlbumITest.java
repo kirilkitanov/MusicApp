@@ -71,7 +71,6 @@ public class AlbumITest {
 
         albumService.addNewAlbum(newAlbumRequest, registeredUser);
 
-        // Then
         List<Album> albums = albumRepository.findAll();
 
         assertEquals(1, albums.size());

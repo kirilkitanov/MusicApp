@@ -60,7 +60,6 @@ public class AlbumControllerApiTest {
         verify(userService, times(1)).getById(user.getId());
     }
 
-
     @Test
     void postAddNewAlbum_withInvalidData_shouldReturnNewAlbumView() throws Exception {
         User user = TestBuilder.aRandomUser();
@@ -103,7 +102,6 @@ public class AlbumControllerApiTest {
 
         verify(albumService, times(1)).findAlbumsByUser(user);
     }
-
 
     @Test
     void putChangeAlbumStatus_shouldRedirectToPersonalAndCallService() throws Exception {
@@ -200,4 +198,59 @@ public class AlbumControllerApiTest {
         verify(albumService, times(1)).addNewAlbum(any(NewAlbumRequest.class), eq(user));
     }
 
+    @Test
+    void putUpdateEditAlbumPage_withValidData_shouldRedirectToPersonalAndCallService() throws Exception {
+        User user = TestBuilder.aRandomUser();
+        user.setRole(UserRole.ARTIST);
+        AuthenticationDetails principal = new AuthenticationDetails(
+                user.getId(), user.getUsername(), user.getPassword(), user.getRole(), true
+        );
+
+        UUID albumId = UUID.randomUUID();
+        when(userService.getById(user.getId())).thenReturn(user);
+
+        MockHttpServletRequestBuilder request = put("/albums/{id}/form", albumId)
+                .with(user(principal))
+                .with(csrf())
+                .param("albumName", "Updated Album")
+                .param("artistName", "Updated Artist")
+                .param("description", "Updated Description")
+                .param("genre", "ROCK")
+                .param("albumCover", "http://updated-cover.jpg")
+                .param("releaseDate", "2020")
+                .param("youtubeVideoId", "xyz12345");
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/albums/personal"));
+
+        verify(albumService, times(1)).updateAlbum(eq(albumId), any(), eq(user));
+    }
+
+    @Test
+    void putUpdateEditAlbumPage_withInvalidData_shouldReturnEditAlbumView() throws Exception {
+        User user = TestBuilder.aRandomUser();
+        user.setRole(UserRole.ARTIST);
+        AuthenticationDetails principal = new AuthenticationDetails(
+                user.getId(), user.getUsername(), user.getPassword(), user.getRole(), true
+        );
+
+        UUID albumId = UUID.randomUUID();
+        when(userService.getById(user.getId())).thenReturn(user);
+
+        MockHttpServletRequestBuilder request = put("/albums/{id}/form", albumId)
+                .with(user(principal))
+                .with(csrf())
+                .param("albumName", "")
+                .param("artistName", "")
+                .param("description", "")
+                .param("genre", "");
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit-album"))
+                .andExpect(model().attributeExists("user", "editAlbumRequest"));
+
+        verify(albumService, never()).updateAlbum(any(), any(), any());
+    }
 }

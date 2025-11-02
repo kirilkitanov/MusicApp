@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class EmailServiceUTest {
 
     @Test
     void givenPreferenceExists_whenUpsertPreference_thenUpdateFields() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         EmailPreference existing = EmailPreference.builder()
                 .userId(userId)
@@ -55,10 +56,8 @@ public class EmailServiceUTest {
         request.setPreferenceActive(true);
         request.setEmailAddress("new@mail.com");
 
-        // When
         EmailPreference result = emailService.upsertPreference(request);
 
-        // Then
         assertTrue(result.isActive());
         assertEquals("new@mail.com", result.getEmailAddress());
         verify(emailPreferenceRepository, times(1)).save(existing);
@@ -66,7 +65,7 @@ public class EmailServiceUTest {
 
     @Test
     void givenPreferenceDoesNotExist_whenUpsertPreference_thenCreateNew() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         when(emailPreferenceRepository.findByUserId(userId)).thenReturn(Optional.empty());
 
@@ -84,17 +83,15 @@ public class EmailServiceUTest {
         request.setPreferenceActive(true);
         request.setEmailAddress("new@mail.com");
 
-        // When
         EmailPreference result = emailService.upsertPreference(request);
 
-        // Then
         assertTrue(result.isActive());
         assertEquals("new@mail.com", result.getEmailAddress());
     }
 
     @Test
     void givenPreferenceDisabled_whenSendEmail_thenStatusSkipped() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         EmailPreference preference = EmailPreference.builder()
                 .userId(userId)
@@ -119,16 +116,14 @@ public class EmailServiceUTest {
         request.setSubject("Hello");
         request.setBody("Body");
 
-        // When
         Email result = emailService.sendEmail(request);
 
-        // Then
         assertEquals(EmailStatus.SKIPPED, result.getStatus());
     }
 
     @Test
     void givenPreferenceEnabled_whenSendEmail_thenStatusSucceeded() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         EmailPreference preference = EmailPreference.builder()
                 .userId(userId)
@@ -153,17 +148,15 @@ public class EmailServiceUTest {
         request.setSubject("Hello");
         request.setBody("Body");
 
-        // When
         Email result = emailService.sendEmail(request);
 
-        // Then
         assertEquals(EmailStatus.SUCCEEDED, result.getStatus());
         verify(emailRepository, times(1)).save(any(Email.class));
     }
 
     @Test
     void givenNoPreference_whenGetPreferenceByUserId_thenCreateDefault() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         when(emailPreferenceRepository.findByUserId(userId)).thenReturn(Optional.empty());
 
@@ -176,12 +169,47 @@ public class EmailServiceUTest {
                 .build();
         when(emailPreferenceRepository.save(any())).thenReturn(saved);
 
-        // When
         EmailPreference result = emailService.getPreferenceByUserId(userId);
 
-        // Then
         assertFalse(result.isActive());
         assertEquals("", result.getEmailAddress());
         assertEquals(userId, result.getUserId());
+    }
+
+    @Test
+    void givenExceptionWhenSendEmail_thenStatusFailed() {
+
+        UUID userId = UUID.randomUUID();
+        EmailPreference preference = EmailPreference.builder()
+                .userId(userId)
+                .active(true)
+                .emailAddress("user@mail.com")
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        when(emailPreferenceRepository.findByUserId(userId)).thenReturn(Optional.of(preference));
+
+        Email failedEmail = Email.builder()
+                .userId(userId)
+                .subject("Hello")
+                .body("Body")
+                .status(EmailStatus.FAILED)
+                .createdOn(LocalDateTime.now())
+                .build();
+        when(emailRepository.save(any())).thenReturn(failedEmail);
+
+        doThrow(new RuntimeException("Mail server is down")).when(mailSender).send(any(SimpleMailMessage.class));
+
+        SendEmailRequest request = new SendEmailRequest();
+        request.setUserId(userId);
+        request.setSubject("Hello");
+        request.setBody("Body");
+
+        Email result = emailService.sendEmail(request);
+
+        assertEquals(EmailStatus.FAILED, result.getStatus());
+        verify(emailRepository, times(1)).save(any(Email.class));  // Ensure that the email was saved in the repository with status FAILED
+        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));  // Ensure that the mailSender.send method was called
     }
 }

@@ -49,54 +49,9 @@ public class UserController {
 
         return modelAndView;
     }
-//    Редиректвам към /home
-//    @PutMapping("/{id}/profile")
-//    public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            User user = userService.getById(id);
-//            ModelAndView modelAndView = new ModelAndView();
-//            modelAndView.setViewName("edit-profile");
-//            modelAndView.addObject("user", user);
-//            modelAndView.addObject("editProfileRequest", editProfileRequest);
-//            return modelAndView;
-//        }
-//
-//        userService.editProfileRequest (id, editProfileRequest);
-//
-//        return new ModelAndView("redirect:/home");
-//    }
 
-//  Оставам на същата страница...
-//    @PutMapping("/{id}/profile")
-//    public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
-//
-//        User user = userService.getById(id);
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("edit-profile");
-//
-//        if (bindingResult.hasErrors()) {
-//            modelAndView.addObject("user", user);
-//            modelAndView.addObject("editProfileRequest", editProfileRequest);
-//            modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
-//            return modelAndView;
-//        }
-//
-//        userService.editProfileRequest(id, editProfileRequest);
-//
-//        user = userService.getById(id);
-//
-//        EmailPreference preference = emailService.getEmailPreference(id);
-//        emailService.savePreference(id, preference.isActive(), user.getEmail());
-//
-//        modelAndView.addObject("user", user);
-//        modelAndView.addObject("editProfileRequest", DtoMapper.mapUserToEditProfileRequest(user));
-//        modelAndView.addObject("emailPreference", emailService.getEmailPreference(id));
-//
-//        return modelAndView;
-//    }
 
-//    Просто не намерих друго решение освен с try/catch тук
+//  Извинявам се за коментара, просто не намерих друго решение и затова използвам try/catch тук
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
         User user = userService.getById(id);

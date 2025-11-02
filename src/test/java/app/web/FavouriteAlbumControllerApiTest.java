@@ -52,7 +52,6 @@ public class FavouriteAlbumControllerApiTest {
         when(userService.getById(user.getId())).thenReturn(user);
         when(favouriteAlbumService.getFavoritesByUser(user)).thenReturn(List.of(favouriteAlbum));
 
-
         mockMvc.perform(get("/favourites").with(user(principal)))
                 .andExpect(status().isOk())
                 .andExpect(view().name("favourite-albums"))
@@ -108,5 +107,4 @@ public class FavouriteAlbumControllerApiTest {
         verify(albumService).getById(albumId);
         verify(favouriteAlbumService).deleteFavourites(user, album);
     }
-
 }

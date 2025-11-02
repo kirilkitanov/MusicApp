@@ -19,7 +19,6 @@ public class DtoMapperUTest {
     @Test
     void givenHappyPath_whenMappingEmailPreferenceToResponse() {
 
-        // Given
         UUID id = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
         EmailPreference emailPreference = EmailPreference.builder()
@@ -29,10 +28,8 @@ public class DtoMapperUTest {
                 .emailAddress("user@mail.com")
                 .build();
 
-        // When
         EmailPreferenceResponse resultDto = DtoMapper.fromEmailPreference(emailPreference);
 
-        // Then
         assertEquals(emailPreference.getId(), resultDto.getId());
         assertEquals(emailPreference.getUserId(), resultDto.getUserId());
         assertEquals(emailPreference.isActive(), resultDto.isActive());
@@ -42,15 +39,12 @@ public class DtoMapperUTest {
     @Test
     void givenHappyPath_whenMappingEmailToResponse() {
 
-        // Given
         Email email = Email.builder()
                 .status(EmailStatus.SUCCEEDED)
                 .build();
 
-        // When
         EmailResponse resultDto = DtoMapper.fromEmail(email);
 
-        // Then
         assertEquals(email.getStatus(), resultDto.getStatus());
     }
 }

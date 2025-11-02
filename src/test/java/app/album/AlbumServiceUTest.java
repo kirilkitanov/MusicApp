@@ -49,7 +49,7 @@ public class AlbumServiceUTest {
 
     @Test
     void givenNewAlbumRequest_whenAddNewAlbum_thenSaveAlbumAndSendEmails() {
-        // Given
+
         User user = User.builder()
                 .id(UUID.randomUUID())
                 .username("testUser")
@@ -78,10 +78,10 @@ public class AlbumServiceUTest {
         when(favouriteAlbumService.getUsersWhoFavoritedArtist("Test Artist"))
                 .thenReturn(List.of(user));
 
-        // When
+
         albumService.addNewAlbum(request, user);
 
-        // Then
+
         verify(albumRepository, times(1)).save(any(Album.class));
         verify(emailService, times(1))
                 .sendEmail(eq(user.getId()), contains("We have a new album"), contains("Test Album"));
@@ -89,7 +89,7 @@ public class AlbumServiceUTest {
 
     @Test
     void givenUserIsAdmin_whenFindAlbumsByUser_thenReturnAllAlbums() {
-        // Given
+
         User admin = User.builder()
                 .id(UUID.randomUUID())
                 .role(UserRole.ADMIN)
@@ -97,17 +97,15 @@ public class AlbumServiceUTest {
 
         when(albumRepository.findAllByOrderByCreatedOnDesc()).thenReturn(List.of(new Album()));
 
-        // When
         List<Album> result = albumService.findAlbumsByUser(admin);
 
-        // Then
         assertEquals(1, result.size());
         verify(albumRepository, times(1)).findAllByOrderByCreatedOnDesc();
     }
 
     @Test
     void givenUserIsOwner_whenChangeAlbumStatus_thenStatusIsUpdated() throws Exception {
-        // Given
+
         UUID userId = UUID.randomUUID();
         Album album = Album.builder()
                 .id(UUID.randomUUID())
@@ -118,29 +116,26 @@ public class AlbumServiceUTest {
         when(albumRepository.findById(album.getId())).thenReturn(Optional.of(album));
         when(userService.getById(userId)).thenReturn(album.getUser());
 
-        // When
         albumService.changeAlbumStatus(album.getId(), userId);
 
-        // Then
         assertEquals(AlbumStatus.INVISIBLE, album.getAlbumStatus());
         verify(albumRepository, times(1)).save(album);
     }
 
     @Test
     void givenAlbumNotFound_whenFindAndCheckOwnership_thenThrowAccessDeniedException() {
-        // Given
+
         UUID albumId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
         when(albumRepository.findById(albumId)).thenReturn(Optional.empty());
 
-        // When / Then
         assertThrows(AccessDeniedException.class, () -> albumService.findAndCheckAlbumOwnership(albumId, userId));
     }
 
     @Test
     void givenInvalidUser_whenFindAndCheckOwnership_thenThrowAccessDeniedException() {
-        // Given
+
         UUID albumId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
@@ -150,13 +145,12 @@ public class AlbumServiceUTest {
         when(albumRepository.findById(albumId)).thenReturn(Optional.of(album));
         when(userService.getById(userId)).thenReturn(User.builder().id(userId).role(UserRole.FAN).build());
 
-        // When / Then
         assertThrows(AccessDeniedException.class, () -> albumService.findAndCheckAlbumOwnership(albumId, userId));
     }
 
     @Test
     void givenRegularUser_whenFindAlbumsByUser_thenReturnOnlyTheirAlbums() {
-        // Given
+
         UUID userId = UUID.randomUUID();
         User user = User.builder()
                 .id(userId)
@@ -169,10 +163,8 @@ public class AlbumServiceUTest {
 
         when(albumRepository.findByUserOrderByCreatedOnDesc(user)).thenReturn(userAlbums);
 
-        // When
         List<Album> result = albumService.findAlbumsByUser(user);
 
-        // Then
         assertEquals(2, result.size());
         assertTrue(result.contains(album1));
         assertTrue(result.contains(album2));
@@ -180,7 +172,7 @@ public class AlbumServiceUTest {
 
     @Test
     void givenInvisibleAlbum_whenChangeAlbumStatus_thenBecomeVisible() throws Exception {
-        // Given
+
         UUID userId = UUID.randomUUID();
         UUID albumId = UUID.randomUUID();
         User user = User.builder()
@@ -197,26 +189,22 @@ public class AlbumServiceUTest {
         when(albumRepository.findById(albumId)).thenReturn(Optional.of(album));
         when(userService.getById(userId)).thenReturn(user);
 
-        // When
         albumService.changeAlbumStatus(albumId, userId);
 
-        // Then
         assertEquals(AlbumStatus.VISIBLE, album.getAlbumStatus());
     }
 
     @Test
     void givenAlbumsInDatabase_whenGetAllAlbums_thenReturnAllAlbums() {
-        // Given
+
         Album album1 = Album.builder().id(UUID.randomUUID()).albumName("Album1").build();
         Album album2 = Album.builder().id(UUID.randomUUID()).albumName("Album2").build();
         List<Album> albums = List.of(album1, album2);
 
         when(albumRepository.findAllByOrderByCreatedOnDesc()).thenReturn(albums);
 
-        // When
         List<Album> result = albumService.getAllAlbums();
 
-        // Then
         assertEquals(2, result.size());
         assertTrue(result.contains(album1));
         assertTrue(result.contains(album2));
@@ -224,32 +212,29 @@ public class AlbumServiceUTest {
 
     @Test
     void givenExistingAlbum_whenGetById_thenReturnAlbum() {
-        // Given
+
         UUID albumId = UUID.randomUUID();
         Album album = Album.builder().id(albumId).albumName("Test Album").build();
         when(albumRepository.findById(albumId)).thenReturn(Optional.of(album));
 
-        // When
         Album result = albumService.getById(albumId);
 
-        // Then
         assertEquals(albumId, result.getId());
         assertEquals("Test Album", result.getAlbumName());
     }
 
     @Test
     void givenMissingAlbum_whenGetById_thenThrowAccessDeniedException() {
-        // Given
+
         UUID albumId = UUID.randomUUID();
         when(albumRepository.findById(albumId)).thenReturn(Optional.empty());
 
-        // When & Then
         assertThrows(org.springframework.security.access.AccessDeniedException.class, () -> albumService.getById(albumId));
     }
 
     @Test
     void givenValidEditAlbumRequest_whenUpdateAlbum_thenAlbumIsUpdated() throws Exception {
-        // Given
+
         UUID albumId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
         User user = User.builder()
@@ -282,10 +267,8 @@ public class AlbumServiceUTest {
         when(albumRepository.findById(albumId)).thenReturn(Optional.of(album));
         when(userService.getById(userId)).thenReturn(user);
 
-        // When
         albumService.updateAlbum(albumId, editRequest, user);
 
-        // Then
         assertEquals("New Album", album.getAlbumName());
         assertEquals("New Artist", album.getArtistName());
         assertEquals("New Description", album.getDescription());
@@ -294,5 +277,4 @@ public class AlbumServiceUTest {
         assertEquals("2023-01-01", album.getReleaseDate());
         assertEquals("newYT", album.getYoutubeVideoId());
     }
-
 }
