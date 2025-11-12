@@ -62,7 +62,7 @@
       <recent name="app.web.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.app in emailNotification">
+  <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="All in emailNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="emailNotification" />
       <option name="PACKAGE_NAME" value="" />
@@ -171,6 +171,9 @@
       <workItem from="1760630650779" duration="3094000" />
       <workItem from="1761249586567" duration="4298000" />
       <workItem from="1762102475548" duration="208000" />
+      <workItem from="1762112752174" duration="43000" />
+      <workItem from="1762691329179" duration="1296000" />
+      <workItem from="1762703006955" duration="1960000" />
     </task>
     <servers />
   </component>
