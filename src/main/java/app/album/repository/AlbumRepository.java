@@ -10,9 +10,6 @@ import java.util.UUID;
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
     List<Album> findByUserOrderByCreatedOnDesc(User user);
 
-
-//    Optional<Album> findByIdAndUserId(UUID albumId, UUID userId);
-
     List<Album> findAllByOrderByCreatedOnDesc();
 
 }

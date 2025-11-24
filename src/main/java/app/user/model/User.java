@@ -63,7 +63,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavouriteAlbum> favouriteAlbums = new ArrayList<>();
-
-
-
 }

@@ -28,17 +28,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     private final EmailService emailService;
-
-
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
     }
-
     public void register(RegisterRequest registerRequest) {
 
         Optional<User> optionUser = userRepository.findByUsername(registerRequest.getUsername());
@@ -79,7 +75,6 @@ public class UserService implements UserDetailsService {
             log.warn("Could not send welcome email to: {} Error: {}", user.getEmail(), ex.getMessage());
         }
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -88,12 +83,10 @@ public class UserService implements UserDetailsService {
 
         return new AuthenticationDetails(user.getId(), user.getUsername(), user.getPassword(), user.getRole(), user.isActive());
     }
-
     public User getById(UUID userId) {
 
         return userRepository.findById(userId).orElseThrow();
     }
-
     public void editProfileRequest(UUID userId, EditProfileRequest editProfileRequest) {
 
         User user = getById(userId);
@@ -116,27 +109,21 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
     }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
     public void changeRole(UUID userId, UserRole userRole) {
 
         User user = getById(userId);
         user.setRole(userRole);
         userRepository.save(user);
     }
-
     public void changeStatus(UUID userId) {
 
         User user = getById(userId);
-
         user.setActive(!user.isActive());
-
         userRepository.save(user);
     }
-
 }
 
 

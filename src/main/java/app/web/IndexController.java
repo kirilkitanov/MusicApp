@@ -35,7 +35,6 @@ public class IndexController {
         this.favouriteAlbumService = favouriteAlbumService;
     }
 
-
     @GetMapping("/")
     public String getIndexPage() {
 
@@ -99,5 +98,4 @@ public class IndexController {
 
         return modelAndView;
     }
-
 }

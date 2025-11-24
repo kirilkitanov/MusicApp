@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #080838;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.success-box {
+    background-color: transparent;
+    padding: 40px 60px;
+    border-radius: 15px;
+    border: 2px solid white;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #F9A825;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+.back-btn {
+    background-color: #F9A825;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #F57F17;
+}

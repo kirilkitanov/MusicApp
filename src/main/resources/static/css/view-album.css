@@ -223,8 +223,51 @@ li::marker {
     border: none;
 }
 
+.album-text {
+    position: relative;
+}
 
+.buy-cart-container {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
 
+.buy {
+    background-color: #F9A825;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
 
+.buy:hover {
+    background-color: #F57F17;
+}
 
+.cart-link {
+    display: inline-flex;
+    align-items: center;
+    background-color: #F9A825;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+}
 
+.cart-link:hover {
+    background-color: #F57F17;
+}
+
+.cart-icon {
+    height: 12px;
+    margin-right: 5px;
+}

@@ -116,5 +116,4 @@ public class ReviewService {
         List<Review> reportedReviews = getAllReportedReviews();
         reviewRepository.deleteAll(reportedReviews);
     }
-
 }

@@ -57,7 +57,6 @@ public class GlobalExceptionHandler {
 
         return modelAndView;
     }
-
 }
 
 

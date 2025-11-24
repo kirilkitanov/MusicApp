@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Successful</title>
+    <link rel="stylesheet" th:href="@{/css/order-success.css}">
+    <script>
+        setTimeout(function () {
+            window.location.href = "/home";
+        }, 4000);
+    </script>
+</head>
+<body>
+<div class="success-box">
+    <h1>Order Successful!</h1>
+    <p>Your order has been completed.</p>
+    <a href="/home" class="back-btn">Back to homepage</a>
+</div>
+</body>
+</html>

@@ -47,7 +47,6 @@
                             allowfullscreen>
                     </iframe>
                 </div>
-
             </div>
 
             <div class="album-text">
@@ -55,7 +54,22 @@
                 <h3><span class="label">Artist:</span> <span th:text="${album.artistName}"></span></h3>
                 <h3><span class="label">Released:</span> <span th:text="${album.releaseDate}"></span></h3>
                 <p><span class="label"><b>Description:</b></span>
-                   <span th:text="${album.description}" class="album-description"></span></p>
+                    <span th:text="${album.description}" class="album-description"></span></p>
+
+                <div class="buy-cart-container">
+                    <form th:if="${album.price != null}" th:action="@{'/cart/add/' + ${album.id}}" method="POST" class="buy-form">
+                        <button type="submit" class="buy"
+                                th:text="'Buy now for ' + ${album.price} + ' EUR'">Buy</button>
+                    </form>
+
+                    <div class="cart-info">
+                        <a th:href="@{/cart}" class="cart-link">
+                            <img src="/images/cart.svg" class="cart-icon" alt="Cart">
+                            <span th:text="${cartTotal} + ' EUR'">0.00 EUR</span>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
         <form class="new-review-form" th:action="@{/reviews}" method="POST" th:object="${newReviewRequest}">

@@ -27,6 +27,4 @@ public class FavouriteAlbum {
 
     @ManyToOne
     private Album album;
-
-
 }

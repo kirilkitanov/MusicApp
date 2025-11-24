@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App</title>
+    <link rel="stylesheet" href="/css/uploaded-albums.css">
+</head>
+<body class="home-page">
+
+<div class="left-side">
+    <div class="user-info">
+        <h3>Welcome,</h3>
+        <h3 th:if="${user.firstName != null or user.lastName != null}"
+            th:text="${(user.firstName != null ? user.firstName : '') + (user.lastName != null ? ' ' + user.lastName : '')}">
+        </h3>
+        <h3 th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}">Fan</h3>
+    </div>
+
+
+    <div class="nav-bar">
+        <a th:href="@{/home}" class="nav-btn">All Albums</a>
+        <a th:href="@{/albums/new}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Add Album</a>
+        <a th:href="@{/albums/personal}" class="nav-btn" th:if="${user.role.name() == 'ADMIN' || user.role.name() == 'ARTIST'}" >Uploaded Albums</a>
+        <a th:href="@{/favourites}" class="nav-btn">Favourite Albums</a>
+        <a th:href="@{/reviews/my-reviews}" class="nav-btn">My Reviews</a>
+        <a th:href="@{/reviews/reported}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Reported Reviews</a>
+        <a th:href="@{'/users/' + ${user.id} + '/profile'}" class="nav-btn-active">Profile</a>
+        <a th:href="@{/users}" class="nav-btn" th:if="${user.role.name() == 'ADMIN'}" >Users</a>
+    </div>
+    <a href="/logout" class="nav-btn logout-btn">Logout</a>
+</div>
+<div class="separator"></div>
+
+
+<div class="album-table-container">
+    <table class="album-table">
+        <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Price</th>
+            <th>Remove Album</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.artistName}">Artist Name</td>
+            <td th:text="${item.albumName}">Album Name</td>
+            <td th:text="${item.price} + ' EUR'">Price</td>
+            <td>
+                <form th:action="@{'/cart/remove/' + ${item.albumId}}" method="POST">
+                    <button type="submit" class="status-toggle-btn">Remove</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="cart-summary">
+        <p>Total: <span th:text="${cartTotal} + ' EUR'">0.00 EUR</span></p>
+
+        <form th:if="${cartTotal > 0}" th:action="@{/cart/checkout}" method="POST">
+            <button type="submit" class="status-toggle-btn">Checkout</button>
+        </form>
+
+        <p class="text-inactive" th:if="${cartTotal == 0}">
+            Your cart is empty
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

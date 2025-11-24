@@ -50,7 +50,6 @@ public class UserController {
         return modelAndView;
     }
 
-
 //  Извинявам се за коментара, просто не намерих друго решение и затова използвам try/catch тук
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
@@ -85,8 +84,6 @@ public class UserController {
 
         return modelAndView;
     }
-
-
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -126,7 +123,4 @@ public class UserController {
 
         return "redirect:/users/" + id + "/profile";
     }
-
-
-
 }

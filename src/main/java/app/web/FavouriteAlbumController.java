@@ -67,5 +67,4 @@ public class FavouriteAlbumController {
 
         return "redirect:" + redirect;
     }
-
 }

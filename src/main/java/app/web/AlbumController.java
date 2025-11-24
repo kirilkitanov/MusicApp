@@ -5,6 +5,7 @@ import app.album.service.AlbumService;
 import app.review.model.Review;
 import app.review.service.ReviewService;
 import app.security.AuthenticationDetails;
+import app.store.service.StoreService;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.EditAlbumRequest;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.math.BigDecimal;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
@@ -31,12 +34,14 @@ public class AlbumController {
     private final UserService userService;
     private final AlbumService albumService;
     private final ReviewService reviewService;
+    private final StoreService storeService;
 
     @Autowired
-    public AlbumController(UserService userService, AlbumService albumService, ReviewService reviewService) {
+    public AlbumController(UserService userService, AlbumService albumService, ReviewService reviewService, StoreService storeService) {
         this.userService = userService;
         this.albumService = albumService;
         this.reviewService = reviewService;
+        this.storeService = storeService;
     }
 
     @GetMapping("/new")
@@ -140,14 +145,16 @@ public class AlbumController {
         NewReviewRequest newReviewRequest = new NewReviewRequest();
         newReviewRequest.setAlbumId(id);
 
+        BigDecimal cartTotal = storeService.getCartTotal(authenticationDetails.getUserId());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("view-album");
         modelAndView.addObject("user", user);
         modelAndView.addObject("album", album);
         modelAndView.addObject("newReviewRequest", newReviewRequest);
         modelAndView.addObject("reviews", reviews);
+        modelAndView.addObject("cartTotal", cartTotal);
 
         return modelAndView;
     }
-
 }

@@ -22,5 +22,4 @@ public interface FavouriteAlbumRepository extends JpaRepository<FavouriteAlbum, 
 
     @Query("SELECT DISTINCT f.user FROM FavouriteAlbum f WHERE f.album.artistName = :artistName")
     List<User> findDistinctUsersByAlbumArtistName(@Param("artistName") String artistName);
-
 }

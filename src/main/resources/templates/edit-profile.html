@@ -35,7 +35,6 @@
 </div>
 <div class="separator"></div>
 
-<
 <div class="edit-profile-container">
     <div class="forms-wrapper">
 
@@ -88,6 +87,13 @@
             </button>
         </form>
 
+            <form th:action="@{/cart}" method="GET">
+                <button type="submit" class="edit-profile-btn">Checkout</button>
+            </form>
+
+        <form th:action="@{/orders}" method="GET">
+            <button type="submit" class="edit-profile-btn"> Order History </button>
+        </form>
 
     </div>
 </div>

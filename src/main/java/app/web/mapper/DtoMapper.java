@@ -29,7 +29,7 @@ public class DtoMapper {
                 .albumCover(album.getAlbumCover())
                 .releaseDate(album.getReleaseDate())
                 .youtubeVideoId(album.getYoutubeVideoId())
+                .price(album.getPrice())
                 .build();
     }
-
 }

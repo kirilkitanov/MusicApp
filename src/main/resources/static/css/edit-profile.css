@@ -97,7 +97,7 @@ body, html {
 .forms-wrapper {
     background-color: transparent;
     border: 2px solid white;
-    padding: 30px;
+    padding: 10px 30px;
     border-radius: 10px;
     width: 300px;
     display: flex;
@@ -109,8 +109,8 @@ body, html {
 .edit-profile-btn {
     display: block;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 9px;
+    margin: 9px 0;
     border: none;
     border-radius: 5px;
     box-sizing: border-box;
@@ -139,6 +139,10 @@ body, html {
 
 .text-inactive {
     color: red !important;
+}
+
+.edit-profile-btn {
+    margin: 5px 0;
 }
 
 

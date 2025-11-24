@@ -46,6 +46,7 @@ public class AlbumService {
                 .albumCover(newAlbumRequest.getAlbumCover())
                 .releaseDate(newAlbumRequest.getReleaseDate())
                 .youtubeVideoId(newAlbumRequest.getYoutubeVideoId())
+                .price(newAlbumRequest.getPrice())
                 .albumStatus(AlbumStatus.VISIBLE)
                 .createdOn(LocalDateTime.now())
                 .user(user)
@@ -122,6 +123,7 @@ public class AlbumService {
         album.setReleaseDate(editAlbumRequest.getReleaseDate());
         album.setDescription(editAlbumRequest.getDescription());
         album.setYoutubeVideoId(editAlbumRequest.getYoutubeVideoId());
+        album.setPrice(editAlbumRequest.getPrice());
 
         albumRepository.save(album);
     }

@@ -5,6 +5,7 @@ import app.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,9 @@ public class Album {
     @Column
     private String youtubeVideoId;
 
+    @Column
+    private BigDecimal price;
+
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
@@ -59,7 +63,5 @@ public class Album {
 
     @ManyToOne
     private User user;
-
-
 
 }
