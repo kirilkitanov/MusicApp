@@ -44,7 +44,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/emailNotification&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/v0.3/MusicApp&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -69,6 +69,21 @@
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailControllerApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emailNotification" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.web" />
+      <option name="MAIN_CLASS_NAME" value="app.web.EmailControllerApiTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -126,6 +141,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.EmailControllerApiTest" />
       <item itemvalue="JUnit.All in emailNotification" />
       <item itemvalue="JUnit.app in emailNotification" />
       <item itemvalue="JUnit.EmailServiceITest" />
@@ -135,6 +151,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.app in emailNotification" />
+        <item itemvalue="JUnit.EmailControllerApiTest" />
         <item itemvalue="JUnit.All in emailNotification" />
         <item itemvalue="JUnit.EmailServiceUTest" />
         <item itemvalue="JUnit.EmailServiceITest" />
@@ -174,6 +191,25 @@
       <workItem from="1762112752174" duration="43000" />
       <workItem from="1762691329179" duration="1296000" />
       <workItem from="1762703006955" duration="1960000" />
+      <workItem from="1763306705237" duration="786000" />
+      <workItem from="1763318435015" duration="267000" />
+      <workItem from="1763405773140" duration="951000" />
+      <workItem from="1763411617819" duration="33000" />
+      <workItem from="1763490676961" duration="1318000" />
+      <workItem from="1763495182014" duration="1937000" />
+      <workItem from="1763498771985" duration="24000" />
+      <workItem from="1763570542998" duration="724000" />
+      <workItem from="1763711568797" duration="33000" />
+      <workItem from="1763757523298" duration="638000" />
+      <workItem from="1763790887981" duration="3636000" />
+      <workItem from="1763886969795" duration="227000" />
+      <workItem from="1763890438817" duration="54000" />
+      <workItem from="1763890598635" duration="220000" />
+      <workItem from="1763890978234" duration="367000" />
+      <workItem from="1763906229374" duration="128000" />
+      <workItem from="1763906387670" duration="32000" />
+      <workItem from="1763912171740" duration="1226000" />
+      <workItem from="1764013176370" duration="34000" />
     </task>
     <servers />
   </component>
@@ -181,13 +217,13 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/emailNotification$app_in_emailNotification.ic" NAME="app in emailNotification Coverage Results" MODIFIED="1762102621398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/emailNotification$app_in_emailNotification.ic" NAME="app in emailNotification Coverage Results" MODIFIED="1763902085855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>app.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/emailNotification$EmailServiceUTest.ic" NAME="EmailServiceUTest Coverage Results" MODIFIED="1761510586751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>app.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/emailNotification$All_in_emailNotification.ic" NAME="All in emailNotification Coverage Results" MODIFIED="1761512291066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/emailNotification$All_in_emailNotification.ic" NAME="All in emailNotification Coverage Results" MODIFIED="1763887048609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/emailNotification$EmailServiceITest.ic" NAME="EmailServiceITest Coverage Results" MODIFIED="1760459528968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>app.*</FILTER>
     </SUITE>

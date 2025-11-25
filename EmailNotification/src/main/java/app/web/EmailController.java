@@ -61,5 +61,4 @@ public class EmailController {
                 .status(HttpStatus.CREATED)
                 .body(emailResponse);
     }
-
 }

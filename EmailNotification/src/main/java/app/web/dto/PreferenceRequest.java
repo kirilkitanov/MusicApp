@@ -17,5 +17,4 @@ public class PreferenceRequest {
     @NotBlank
     @NotNull
     private String emailAddress;
-
 }

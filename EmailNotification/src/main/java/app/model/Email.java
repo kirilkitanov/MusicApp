@@ -35,5 +35,4 @@ public class Email {
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
-
 }

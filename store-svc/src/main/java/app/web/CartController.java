@@ -24,20 +24,6 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CartItemResponse>> getCart(@RequestParam UUID userId) {
-        List<CartItemResponse> cartItems = cartService.getCart(userId)
-                .stream()
-                .map(CartMapper::toResponse)
-                .toList();
-        return ResponseEntity.ok(cartItems);
-    }
-
-    @GetMapping("/sum")
-    public ResponseEntity<BigDecimal> getCartSum(@RequestParam UUID userId) {
-        return ResponseEntity.ok(cartService.getCurrentSum(userId));
-    }
-
     @PostMapping("/add")
     public ResponseEntity<CartItemResponse> addItem(@RequestBody AddItemRequest request) {
         CartItem item = CartMapper.toCartItem(request);
@@ -45,6 +31,20 @@ public class CartController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(CartMapper.toResponse(savedItem));
+    }
+
+    @GetMapping("/sum")
+    public ResponseEntity<BigDecimal> getCartSum(@RequestParam UUID userId) {
+        return ResponseEntity.ok(cartService.getCurrentSum(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CartItemResponse>> getCart(@RequestParam UUID userId) {
+        List<CartItemResponse> cartItems = cartService.getCart(userId)
+                .stream()
+                .map(CartMapper::toResponse)
+                .toList();
+        return ResponseEntity.ok(cartItems);
     }
 
     @DeleteMapping("/remove")

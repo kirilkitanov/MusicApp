@@ -22,5 +22,4 @@ public class NewReviewRequest {
 
     @NotNull
     private UUID albumId;
-
 }

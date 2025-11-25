@@ -56,7 +56,6 @@ public class EmailService {
         return emailPreferenceRepository.save(emailPreference);
     }
 
-
     public EmailPreference getPreferenceByUserId(UUID userId) {
         Optional<EmailPreference> existingPreference = emailPreferenceRepository.findByUserId(userId);
 
@@ -119,6 +118,3 @@ public class EmailService {
         return emailRepository.save(email);
     }
 }
-
-
-

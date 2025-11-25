@@ -10,5 +10,4 @@ import lombok.Data;
 public class EmailResponse {
 
     private EmailStatus status;
-
 }

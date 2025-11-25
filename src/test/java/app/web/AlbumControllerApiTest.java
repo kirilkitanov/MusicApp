@@ -6,6 +6,7 @@ import app.album.service.AlbumService;
 import app.review.model.Review;
 import app.review.service.ReviewService;
 import app.security.AuthenticationDetails;
+import app.store.service.StoreService;
 import app.user.model.User;
 import app.user.model.UserRole;
 import app.user.service.UserService;
@@ -37,6 +38,9 @@ public class AlbumControllerApiTest {
 
     @MockitoBean
     private ReviewService reviewService;
+
+    @MockitoBean
+    private StoreService storeService;
 
     @Autowired
     private MockMvc mockMvc;

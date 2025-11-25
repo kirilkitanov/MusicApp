@@ -37,13 +37,13 @@ public class OrderService {
                 .build();
 
         List<OrderItem> orderItems = cartItems.stream()
-                .map(ci -> OrderItem.builder()
-                        .albumId(ci.getAlbumId())
-                        .albumName(ci.getAlbumName())
-                        .artistName(ci.getArtistName())
-                        .price(ci.getPrice())
-                        .quantity(ci.getQuantity())
-                        .order(order) // асоциираме към Order
+                .map(cartItem -> OrderItem.builder()
+                        .albumId(cartItem.getAlbumId())
+                        .albumName(cartItem.getAlbumName())
+                        .artistName(cartItem.getArtistName())
+                        .price(cartItem.getPrice())
+                        .quantity(cartItem.getQuantity())
+                        .order(order)
                         .build())
                 .collect(Collectors.toList());
 
@@ -54,16 +54,13 @@ public class OrderService {
         order.setItems(orderItems);
         order.setTotal(total);
 
-        // Изчистваме cart след place order
         cartService.clearCart(userId);
 
         Order savedOrder = orderRepository.save(order);
 
-        // Map-ваме ентити -> DTO
         return OrderMapper.toResponse(savedOrder);
     }
 
-    // Връща всички поръчки на потребителя като DTO
     public List<OrderResponse> getUserOrders(UUID userId) {
         return orderRepository.findByUserId(userId)
                 .stream()

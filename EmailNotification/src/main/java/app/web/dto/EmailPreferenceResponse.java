@@ -17,5 +17,4 @@ public class EmailPreferenceResponse {
     private boolean active;
 
     private String emailAddress;
-
 }

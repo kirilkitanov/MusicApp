@@ -1,6 +1,7 @@
 # MusicApp
 
-MusicApp is a web application for managing albums, reviews, and user preferences, including email notifications. The system is designed with a microservices architecture, including a main application and an email notification service.
+MusicApp is a web application for managing albums, reviews, and user preferences, including email notifications and order processing.
+The system is designed with a microservices architecture, including the main application, an email notification service, and an order service.
 
 ---
 
@@ -18,7 +19,7 @@ MusicApp is a web application for managing albums, reviews, and user preferences
 
 ## Architecture Overview
 
-MusicApp consists of two main applications:
+MusicApp consists of three main applications:
 
 - **Main Application (`MusicApp`)**
     - Handles users, albums, reviews, favourites
@@ -28,6 +29,10 @@ MusicApp consists of two main applications:
     - Handles user email preferences
     - Sends email notifications
     - REST API for creating preferences, fetching preferences, and sending emails
+- **Order Service (`store-svc`)**
+  - Manages shopping cart operations
+  - Processes orders and stores order history
+  - REST API for adding/removing cart items, calculating totals, placing orders, and retrieving user orders
 
 ---
 
@@ -61,8 +66,15 @@ The application implements the following functionalities:
    - Emails sent only if notifications are active.
 
 - **User Management (Admin Only)**  
-   - View all users
-   - Change roles or status
+   - View all users.
+   - Change roles or status.
+  
+- **Store Service**
+  - Users can add albums to their shopping cart.
+  - Users can remove individual albums from their cart.
+  - Cart total is calculated and displayed per user.
+  - Users can place an order and it is saved in the service, and the cart is cleared after checkout.
+  - Users can view all their past orders, including album, artist, and total price.
 
 ---
 
@@ -79,6 +91,11 @@ The application implements the following functionalities:
 
 - **EmailPreference** – stores per-user notification preferences.
 - **Email** – stores email logs and delivery status.
+
+### Store Service
+- **CartItem** – stores an album added to a user’s cart.
+- **OrderItem** – stores an album in a completed order.
+- **Order** – stores completed orders.
 
 ---
 
@@ -100,7 +117,7 @@ The application implements the following functionalities:
 - Launch IntelliJ IDEA.
 - Select File → Open and navigate to the MusicApp folder.
 - Click OK to open the project.
-- Then open the emailNotification.
+- Then open the emailNotification and store-svc
 
 3. Wait for project dependencies to download
 - IntelliJ will automatically detect it is a Maven project.
@@ -115,7 +132,8 @@ The application implements the following functionalities:
 5. Access the application
 - Main Application usually runs on http://localhost:8080
 - Email Notification runs on http://localhost:8081
-- Make sure both services are running to use email notifications.
+- Store Service runs on http://localhost:8082
+- Make sure all services are running to use the main application, the email notification service, and the store service.
 
 ---
 ## Help
@@ -129,7 +147,7 @@ Make sure MySQL is running and credentials in application.properties are correct
 Check that your Gmail SMTP credentials are valid and that “Allow less secure apps” (or App Password) is configured.
 
 - **Port already in use:**
-Stop any process using ports 8080 or 8081.
+Stop any process using ports 8080, 8081 or 8082.
 ---
 ## Authors
 
@@ -140,8 +158,14 @@ Kiril Kitanov — Project Author and Owner
 ---
 ## Version History
 
+- **v.0.3**
+  - Added Store service microservice
+  - Added album prices, and implemented order management
+  - Added new buttons and pages to the application
+  - Bug fixes and optimizations
+
 - **v.0.2**
-   - Added Email Notification microservice
+   -  Added Email Notification microservice
    -  Enhanced Album Management features
    -  Bug fixes and optimizations
 

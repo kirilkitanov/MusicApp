@@ -2,6 +2,7 @@ package app.notification.service;
 
 import app.notification.client.EmailClient;
 import app.notification.client.dto.CreatePreference;
+import app.notification.client.dto.EmailPreference;
 import app.notification.client.dto.SendEmailRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -72,4 +74,21 @@ public class EmailServiceUTest {
 
         verify(emailClient, times(1)).sendEmail(any(SendEmailRequest.class));
     }
+
+    @Test
+    void getEmailPreference_shouldReturnPreference() {
+        UUID userId = UUID.randomUUID();
+        EmailPreference mockPreference = EmailPreference.builder()
+                .active(true)
+                .build();
+
+        when(emailClient.getUserPreference(userId))
+                .thenReturn(new ResponseEntity<>(mockPreference, HttpStatus.OK));
+
+        EmailPreference result = emailService.getEmailPreference(userId);
+
+        assertNotNull(result);
+        verify(emailClient, times(1)).getUserPreference(userId);
+    }
+
 }

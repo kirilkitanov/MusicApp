@@ -16,5 +16,4 @@ public class SendEmailRequest {
 
     @NotBlank
     private String body;
-
 }
