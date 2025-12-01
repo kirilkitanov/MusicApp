@@ -113,11 +113,11 @@ The application implements the following functionalities:
    ```bash
    https://github.com/kirilkitanov/MusicApp.git
    ```
-2. Open both projects in IntelliJ IDEA (MusicApp and emailNotification).
+2. Move folders emailNotification and store-svc to another directory then open all projects in IntelliJ IDEA.
 - Launch IntelliJ IDEA.
 - Select File → Open and navigate to the MusicApp folder.
 - Click OK to open the project.
-- Then open the emailNotification and store-svc
+- Then navigate to emailNotification and store-svc folders and open the projects.
 
 3. Wait for project dependencies to download
 - IntelliJ will automatically detect it is a Maven project.
